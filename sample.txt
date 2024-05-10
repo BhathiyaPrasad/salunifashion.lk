@@ -1,0 +1,168 @@
+<li><a href="index.html">Home</a></li>
+<li>
+  <a href="" class="desktop-item">Vendors <span><i class='bx bx-chevron-down'></i> </a>
+    <input type="checkbox"  id="showdrop1">
+    <label for="showdrop1" class="mobile-item">Vendors <span><i class='bx bx-chevron-down'></i></label>
+   
+      <ul class="drop-menu1">
+        <header>Office Wears</header>
+        <li onclick="filterItems('WOSkirts')"><a href="">Skirts</a></li>
+        <li onclick="filterItems('WOBlouse')"><a href="">Blouse</a></li>
+        <li onclick="filterItems('WOPants')"><a href="">Pants</a></li>
+        <li onclick="filterItems('WOTops')"><a href="">Tops</a></li>
+      </ul>
+  </li>
+
+<li>
+<a href="#Men" class="desktop-item">Mens <span><i class='bx bx-chevron-down'></i></span></a>
+<input type="checkbox" id="showMega" />
+<label for="showMega" class="mobile-item">Mens <span><i class='bx bx-chevron-down' style="color: white;"></i></label>
+<div class="mega-box">
+  <div class="content">
+    
+    <div class="row">
+      <header>Sport Wears</header>
+      <ul class="items" id="items">
+        
+        <li onclick="filterItems('MSBottoms')"><a href="">Bottoms</a></li>
+        <li onclick="filterItems('MSShorts')"><a href="">Shorts</a></li>
+        <li onclick="filterItems('MST Shirts')"><a href="">T Shirts</a></li>
+        <li onclick="filterItems('MSHoodies')"><a href="">Hoodies</a></li>
+      </ul>
+    </div>
+    <div class="row">
+      <header>Office Wears</header>
+      <ul class="items" id="items">
+        <li onclick="filterItems('MOTrousers')"><a href="">Trousers</a></li>
+        <li onclick="filterItems('MOShirts')"><a href="">Shirts</a></li>
+        <li onclick="filterItems('MOT Shirts')"><a href="">T Shirts</a></li>
+        <li onclick="filterItems('MOTie')"><a href="">Tie</a></li>
+      </ul>
+    </div>
+    <div class="row">
+      <header>Casual Wears</header>
+      <ul class="items" id="items">
+        <li onclick="filterItems('MCT Shirts')"><a href="">T Shirts</a></li>
+        <li onclick="filterItems('MCTrouser')"><a href="">Trousers</a></li>
+        <li onclick="filterItems('MCShirts')"><a href="">Shirts</a></li>
+        <li onclick="filterItems('MCHoodies')"><a href="">Hoodies</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+</li>
+<li>
+  <a href="#women" class="desktop-item"
+    >Womens <span><i class='bx bx-chevron-down'></i></span
+  ></a>
+  <input type="checkbox" id="showMega" />
+  <label for="showMega" class="mobile-item">Womens <span><i class='bx bx-chevron-down' style="color: white;"></i></label>
+  <div class="mega-box">
+    <div class="content">
+    
+      <div class="row">
+        <ul class="drop-menu1">
+        <header>Office Wears</header>
+        <ul class="drop-menu1">
+          <li onclick="filterItems('WOSkirts')"><a href="">Skirts</a></li>
+          <li onclick="filterItems('WOBlouse')"><a href="">Blouse</a></li>
+          <li onclick="filterItems('WOPants')"><a href="">Pants</a></li>
+          <li onclick="filterItems('WOTops')"><a href="">Tops</a></li>
+        </ul>
+      </div>
+      <div class="row">
+        <header>Casual Wears</header>
+        <ul class="items" id="items">
+          <li onclick="filterItems('WCT Shirts')"><a href="">T Shirts</a></li>
+          <li onclick="filterItems('WCFrocks')"><a href="">Frocks</a></li>
+          <li onclick="filterItems('WCSarees')"><a href="">Sarees</a></li>
+          <li onclick="filterItems('WCPants')"><a href="">Pants</a></li>
+        </ul>
+      </div>
+      <div class="row">
+        <header>Party Wears</header>
+        <ul class="items" id="items">
+          <li onclick="filterItems('WPFrocks')"><a href="">Frocks</a></li>
+          <li onclick="filterItems('WPSarees')"><a href="">Sarees</a></li>
+          <li onclick="filterItems('WPBlouse')"><a href="">Blouse</a></li>
+          <li onclick="filterItems('WPSkirts')"><a href="">Skirts</a></li>
+        </ul>
+      </div>
+      <div class="row">
+        <header>Sport Wears</header>
+        <ul class="items" id="items">
+          <li onclick="filterItems('WSShorts')"><a href="">Shorts</a></li>
+          <li onclick="filterItems('WSTops')"><a href="">Tops</a></li>
+          <li onclick="filterItems('WSPants')"><a href="">Pants</a></li>
+          <li onclick="filterItems('WSBottom')"><a href="">Bottom</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  </li>
+  <li>
+    <a href="#Accessories" class="desktop-item"
+      >Accessories <span><i class='bx bx-chevron-down'></i></span
+    ></a>
+    <input type="checkbox" id="showMega" />
+    <label for="showMega" class="mobile-item">Accessories <span><i class='bx bx-chevron-down' style="color: white;"></i></label>
+    <div class="mega-box">
+      <div class="content">
+        <!-- <div class="row">
+          <img src="./images/pic.jpg" alt="">
+        </div> -->
+        <div class="row">
+          <header>Men</header>
+          <ul class="items" id="items">
+            <li><a href="">Side Bags</a></li>
+            <li><a href="">School Bags</a></li>
+            <li><a href="">Sport Bags</a></li>
+            <li><a href="">Hiking Bags</a></li>
+            
+          </ul>
+        </div>
+        <div class="row">
+          <header>Womens</header>
+          <ul class="items" id="items">
+            <li><a href="">Side Bags</a></li>
+            <li><a href="">Hand Bags</a></li>
+            <li><a href="">Sport Bags</a></li>
+            <li><a href="">Hiking Bags</a></li>
+          </ul>
+        </div>
+        <div class="row">
+          <header>Belts</header>
+          <ul class="items" id="items">
+            <li><a href="">Mens</a></li>
+            <li><a href="">Womens</a></li>
+           
+          </ul>
+        </div>
+      </div>
+    </div>
+    </li>
+<li><a href="">Blog</a></li>
+<li>
+<a href="" class="desktop-item">Contact <span></a>
+  <input type="checkbox"  id="showdrop1">
+  <label for="showdrop1" class="mobile-item">Contact <span><i class='bx bx-chevron-down'></i></label>
+   
+</li>
+<li>
+
+</li>
+<li class="icons">
+<a href="cart.html">
+<span>
+  <i class='bx bx-cart'></i>
+  <small class="count d-flex">0</small>
+</span>
+</a>
+<span>
+
+</span>
+</li>
+</ul>
+<label for="" class="btn open-btn"><i class='bx bx-menu' ></i></label>
+</div>
+</nav>
