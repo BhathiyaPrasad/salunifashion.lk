@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Display Images from Firebase Storage</title>
+    <!-- Include Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-storage.js"></script>
+</head>
+<body>
+
+
+
+    <div class="showcase">
+                       
+        <div class="showcase-banner">
+          <img src="./assests/images/product10.jpg" alt="Mens Winter Leathers Jackets" class="product-img default"
+            width="300" id="firebase-image">
+          <img src="./assests/images/product10.10.jpg" alt="Mens Winter Leathers Jackets" class="product-img hover"
+            width="300" id="firebase-image">
+      
+          <div class="showcase-actions">
+            <button class="btn-action">
+              <ion-icon name="heart-outline"></ion-icon>
+            </button>
+      
+            <button class="btn-action">
+              <ion-icon name="eye-outline"></ion-icon>
+            </button>
+      
+            <button class="btn-action">
+              <ion-icon name="repeat-outline"></ion-icon>
+            </button>
+      
+            <button class="btn-action">
+              <ion-icon name="bag-add-outline"></ion-icon>
+            </button>
+          </div>
+        </div>
+      
+        <div class="showcase-content">
+          <br>
+          <a href="#" class="showcase-category">jackets</a>
+      
+          <h3>
+            <a href="#" class="showcase-title">Mens Winter Leathers Jackets</a>
+          </h3>
+          
+      
+          <div class="showcase-rating">
+            <ion-icon name="star"></ion-icon>
+            <ion-icon name="star"></ion-icon>
+            <ion-icon name="star"></ion-icon>
+            <ion-icon name="star"></ion-icon>
+            <ion-icon name="star-outline"></ion-icon>
+          </div>
+      
+         <div class="price-box">
+            <p class="price">Rs.4500.00</p>
+            <del>Rs.5500.00</del>
+          </div>
+          <br>
+          <h5>
+           <button class="buybutton" data-product-id="1" data-product-name="Product 1" data-product-image="./assests/images/acc01.jpg" data-product-price = "Rs.4500.00" data-product-old-price = "Rs.5500.00" data-product-imagetwo ="./assests/images/men3.jpg" >Add To Cart</button>
+          </h5>
+          <br>
+       
+        </div>
+      
+      </div>
+
+      <div class="showcase">
+      
+        <div class="showcase-banner">
+          <img src="./assests/images/product11.jpg" alt="Trekking & Running Shoes - black" class="product-img default"
+            width="300" id="firebase-image2">
+          <img src="./assests/images/product11.11.jpg" alt="Trekking & Running Shoes - black" class="product-img hover"
+            width="300" id="firebase-image">
+      
+          <p class="showcase-badge angle black">sale</p>
+      
+          <div class="showcase-actions">
+            <button class="btn-action">
+              <ion-icon name="heart-outline"></ion-icon>
+            </button>
+      
+            <button class="btn-action">
+              <ion-icon name="eye-outline"></ion-icon>
+            </button>
+      
+            <button class="btn-action">
+              <ion-icon name="repeat-outline"></ion-icon>
+            </button>
+      
+            <button class="btn-action">
+              <ion-icon name="bag-add-outline"></ion-icon>
+            </button>
+          </div>
+        </div>
+      
+        <div class="showcase-content">
+          <br>
+          <a href="#" class="showcase-category">sports</a>
+      
+          <h3>
+            <a href="#" class="showcase-title">Trekking & Running Shoes - black</a>
+          </h3>
+      
+          <div class="showcase-rating">
+            <ion-icon name="star"></ion-icon>
+            <ion-icon name="star"></ion-icon>
+            <ion-icon name="star"></ion-icon>
+            <ion-icon name="star-outline"></ion-icon>
+            <ion-icon name="star-outline"></ion-icon>
+          </div>
+      
+         <div class="price-box">
+            <p class="price">Rs.4500.00</p>
+            <del>Rs.5500.00</del>
+          </div>
+          <br>
+          <h5>
+           <button class="buybutton" data-product-id="1" data-product-name="Product 1" data-product-image="./assests/images/acc01.jpg" data-product-price = "Rs.4500.00" data-product-old-price = "Rs.5500.00" data-product-imagetwo ="./assests/images/men3.jpg" >Add To Cart</button>
+          </h5>
+          <br>
+      
+        </div>
+      
+      </div>
+
+
+    <img id="firebase-image" width="200" height="200" />
+    <img id="firebase-image" width="200" height="200" />
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+    apiKey: "AIzaSyDLa_nr_0c0kudQSzcGV5hkwq3WH2bRGgo",
+    authDomain: "freidea-pos.firebaseapp.com",
+    projectId: "freidea-pos",
+    storageBucket: "freidea-pos.appspot.com",
+    messagingSenderId: "317401437770",
+    appId: "1:317401437770:web:2657a877ea9fe88cf878b3",
+    measurementId: "G-M8RF0RL2FP"
+ };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Reference to your image file in Firebase Storage
+        var storage = firebase.storage();
+        var storageRef = storage.ref();
+        var imageRef  = storageRef.child('myimages/5655paper.jpg');
+        var imageRef2  = storageRef.child('myimages/6292rock.jpg');
+        // Display the image
+        imageRef.getDownloadURL().then(function(url) {
+            // Once we have the URL, we set it as the source of the img element
+            document.getElementById('firebase-image').src = url;
+        }).catch(function(error) {
+            // Handle any errors
+            console.error("Error loading the image:", error);
+        });
+        imageRef2.getDownloadURL().then(function(url) {
+            // Once we have the URL, we set it as the source of the img element
+            document.getElementById('firebase-image2').src = url;
+        }).catch(function(error) {
+            // Handle any errors
+            console.error("Error loading the image:", error);
+        });
+    </script>
+
+</body>
+</html>
