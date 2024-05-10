@@ -148,8 +148,8 @@
         // Reference to your image file in Firebase Storage
         var storage = firebase.storage();
         var storageRef = storage.ref();
-        var imageRef  = storageRef.child('myimages/5655paper.jpg');
-        var imageRef2  = storageRef.child('myimages/6292rock.jpg');
+        var imageRef  = storageRef.child('Images/men/men1.1.jpg');
+        var imageRef2  = storageRef.child('Images/women/frock 01.jpg');
         // Display the image
         imageRef.getDownloadURL().then(function(url) {
             // Once we have the URL, we set it as the source of the img element
