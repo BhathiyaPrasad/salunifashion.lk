@@ -136,3 +136,11 @@
     // doc.data() is never undefined for query doc snapshots
     console.log(doc.id, " => ", doc.data());
   });
+
+
+  const b  = query(collection(db, "users"), where("firstName", "==", "Bhathiya"));
+  const querySnapshots = await getDocs(b);
+  querySnapshots.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    console.log(doc.id, " => ", doc.data());
+  });
