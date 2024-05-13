@@ -1,9 +1,10 @@
  // Import the functions you need from the SDKs you need
  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
  import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
- import{getFirestore, setDoc, doc,} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
- import { collection, doc, setDoc, getDoc } from "firebase/firestore";
- 
+ import{getFirestore, setDoc, doc, getDoc, collection, query, where, getDocs} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+
+
+
  const firebaseConfig = {
     apiKey: "AIzaSyDLa_nr_0c0kudQSzcGV5hkwq3WH2bRGgo",
     authDomain: "freidea-pos.firebaseapp.com",
@@ -100,33 +101,12 @@
  })
   
 
- // retrieve firebase data
+// retrieve firebase data
  
   
- const citiesRef = collection(db, "cities");
+ 
 
- await setDoc(doc(citiesRef, "SF"), {
-     name: "San Francisco", state: "CA", country: "USA",
-     capital: false, population: 860000,
-     regions: ["west_coast", "norcal"] });
- await setDoc(doc(citiesRef, "LA"), {
-     name: "Los Angeles", state: "CA", country: "USA",
-     capital: false, population: 3900000,
-     regions: ["west_coast", "socal"] });
- await setDoc(doc(citiesRef, "DC"), {
-     name: "Washington, D.C.", state: null, country: "USA",
-     capital: true, population: 680000,
-     regions: ["east_coast"] });
- await setDoc(doc(citiesRef, "TOK"), {
-     name: "Tokyo", state: null, country: "Japan",
-     capital: true, population: 9000000,
-     regions: ["kanto", "honshu"] });
- await setDoc(doc(citiesRef, "BJ"), {
-     name: "Beijing", state: null, country: "China",
-     capital: true, population: 21500000,
-     regions: ["jingjinji", "hebei"] });
-
-  const docRef = doc(db, "cities", "SF");
+  const docRef = doc(db, "cities", "DC");
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()){
@@ -134,3 +114,25 @@
   }else{
     console.log("No Documents ! ")
   }
+
+
+
+//   const docRef2 = doc(db, "organization/InterithmT3")
+
+//   const docsnaps = await getDoc(docRef2);
+
+//   if(docsnaps.exists()){s
+//     console.log("document",docsnaps.data());
+//   }else{
+//     console.log("no Documents");
+//   }
+
+
+
+  const q = query(collection(db, "cities"), where("capital", "==", true));
+  
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    console.log(doc.id, " => ", doc.data());
+  });
