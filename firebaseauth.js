@@ -1,7 +1,8 @@
  // Import the functions you need from the SDKs you need
  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
  import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
- import{getFirestore, setDoc, doc} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js"
+ import{getFirestore, setDoc, doc,} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+ import { collection, doc, setDoc, getDoc } from "firebase/firestore";
  
  const firebaseConfig = {
     apiKey: "AIzaSyDLa_nr_0c0kudQSzcGV5hkwq3WH2bRGgo",
@@ -15,6 +16,11 @@
 
  // Initialize Firebase
  const app = initializeApp(firebaseConfig);
+
+ // Initialize Firebase FireStore
+ const db  = getFirestore(app);
+
+
 
  function showMessage(message, divId){
     var messageDiv=document.getElementById(divId);
@@ -92,5 +98,39 @@
         }
     })
  })
-
   
+
+ // retrieve firebase data
+ 
+  
+ const citiesRef = collection(db, "cities");
+
+ await setDoc(doc(citiesRef, "SF"), {
+     name: "San Francisco", state: "CA", country: "USA",
+     capital: false, population: 860000,
+     regions: ["west_coast", "norcal"] });
+ await setDoc(doc(citiesRef, "LA"), {
+     name: "Los Angeles", state: "CA", country: "USA",
+     capital: false, population: 3900000,
+     regions: ["west_coast", "socal"] });
+ await setDoc(doc(citiesRef, "DC"), {
+     name: "Washington, D.C.", state: null, country: "USA",
+     capital: true, population: 680000,
+     regions: ["east_coast"] });
+ await setDoc(doc(citiesRef, "TOK"), {
+     name: "Tokyo", state: null, country: "Japan",
+     capital: true, population: 9000000,
+     regions: ["kanto", "honshu"] });
+ await setDoc(doc(citiesRef, "BJ"), {
+     name: "Beijing", state: null, country: "China",
+     capital: true, population: 21500000,
+     regions: ["jingjinji", "hebei"] });
+
+  const docRef = doc(db, "cities", "SF");
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()){
+    console.log("Document data:", docSnap.data())
+  }else{
+    console.log("No Documents ! ")
+  }
