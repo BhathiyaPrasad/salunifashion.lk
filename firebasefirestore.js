@@ -96,10 +96,10 @@ const itemsQuery = query(
 );
 
 // Execute the query
-const querySnapshotssss = await getDocs(itemsQuery);
+const querySnapshots = await getDocs(itemsQuery);
 
 // Iterate over the query results
-querySnapshotssss.forEach((doc) => {
+querySnapshots.forEach((doc) => {
   console.log(doc.id, " => ", doc.data());
 });
 
