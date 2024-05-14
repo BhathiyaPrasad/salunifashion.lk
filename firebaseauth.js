@@ -184,3 +184,4 @@ const querySnapshotssss = await getDocs(itemsQuery);
 querySnapshotssss.forEach((doc) => {
   console.log(doc.id, " => ", doc.data());
 });
+
