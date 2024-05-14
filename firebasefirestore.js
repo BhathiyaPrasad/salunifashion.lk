@@ -88,7 +88,7 @@ const orgDocId = "InterithmT3";  // organzation name
 const itemsListDiv = document.getElementById("itemlist");
 
 // Reference to the items subcollection within a specific organization
-const itemsRef = collection(doc(db, "organizations", orgDocId), "products_stock_management");
+const itemsRef = collection(doc(db, "organizations", orgDocId), "items");
 
 // Create a query to find the document within the subcollection "items"
 const itemsQuery = query(
@@ -110,7 +110,7 @@ querySnapshots.forEach((doc) => {
  const itemHtml = `
           <div class="showcase">
             <div class="showcase-banner">
-              <img src="${item.image1}" alt="${item.Product_Name}" class="product-img default" width="300">
+              <img src="${item.Image_Location}" alt="${item.Product_Name}" class="product-img default" width="300">
               <img src="${item.image2}" alt="${item.Product_Name}" class="product-img hover" width="300">
               <div class="showcase-actions">
                 <button class="btn-action"><ion-icon name="heart-outline"></ion-icon></button>
@@ -121,8 +121,8 @@ querySnapshots.forEach((doc) => {
             </div>
             <div class="showcase-content">
               <br>
-              <a href="#" class="showcase-category">${item.category}</a>
-              <h3><a href="#" class="showcase-title">${item.name}</a></h3>
+              <a href="#" class="showcase-category">${item.Product_Name}</a>
+              <h3><a href="#" class="showcase-title">${item.Product_Name}</a></h3>
               <div class="showcase-rating">
                 <ion-icon name="star"></ion-icon>
                 <ion-icon name="star"></ion-icon>
