@@ -102,18 +102,19 @@
   
 
 // retrieve firebase data
+
  
   
  
 
-  const docRef = doc(db, "cities", "DC");
-  const docSnap = await getDoc(docRef);
+//   const docRef = doc(db, "cities", "DC");
+//   const docSnap = await getDoc(docRef);
 
-  if (docSnap.exists()){
-    console.log("Document data:", docSnap.data())
-  }else{
-    console.log("No Documents ! ")
-  }
+//   if (docSnap.exists()){
+//     console.log("Document data:", docSnap.data())
+//   }else{
+//     console.log("No Documents ! ")
+//   }
 
 
 
@@ -164,10 +165,11 @@
 //   import { collection, query, where, getDocs, doc } from "firebase/firestore"; 
 
 // Organization document ID
-const orgDocId = "InterithmT3";
+
+const orgDocId = "InterithmT3";  // organzation name
 
 // Reference to the items subcollection within a specific organization
-const itemsRef = collection(doc(db, "organizations", "InterithmT3"), "products_stock_management");
+const itemsRef = collection(doc(db, "organizations", orgDocId), "products_stock_management");
 
 // Create a query to find the document within the subcollection "items"
 const itemsQuery = query(
