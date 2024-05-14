@@ -129,18 +129,56 @@
 
 
 
-  const q = query(collection(db, "cities"), where("capital", "==", true));
+//   const q = query(collection(db, "cities"), where("capital", "==", true));
   
-  const querySnapshot = await getDocs(q);
-  querySnapshot.forEach((doc) => {
-    // doc.data() is never undefined for query doc snapshots
-    console.log(doc.id, " => ", doc.data());
-  });
+//   const querySnapshot = await getDocs(q);
+//   querySnapshot.forEach((doc) => {
+//     // doc.data() is never undefined for query doc snapshots
+//     console.log(doc.id, " => ", doc.data());
+//   });
 
 
-  const b  = query(collection(db, "users"), where("firstName", "==", "Bhathiya"));
-  const querySnapshots = await getDocs(b);
-  querySnapshots.forEach((doc) => {
-    // doc.data() is never undefined for query doc snapshots
-    console.log(doc.id, " => ", doc.data());
-  });
+//   const b  = query(collection(db, "users"), where("firstName", "==", "Bhathiya"));
+//   const querySnapshots = await getDocs(b);
+//   querySnapshots.forEach((doc) => {
+//     // doc.data() is never undefined for query doc snapshots
+//     console.log(doc.id, " => ", doc.data());
+//   });
+
+
+//   const c = query(collection(db, "salunifashion"));
+//   const querySnapshotss = await getDocs(c);
+//   querySnapshotss.forEach((doc) => {
+//     console.log(doc.id, " => ", doc.data());    
+//   });
+  
+
+//   const qq = query(collection(db, "organizations"),("Interithm"), collection("items"), where("Barcode", "==", "577348840"));
+  
+//   const querySnapshotsss = await getDocs(qq);
+//   querySnapshotsss.forEach((doc) => {
+//     // doc.data() is never undefined for query doc snapshots
+//     console.log(doc.id, " => ", doc.data());
+//   });
+
+//   import { collection, query, where, getDocs, doc } from "firebase/firestore"; 
+
+// Organization document ID
+const orgDocId = "InterithmT3";
+
+// Reference to the items subcollection within a specific organization
+const itemsRef = collection(doc(db, "organizations", "InterithmT3"), "products_stock_management");
+
+// Create a query to find the document within the subcollection "items"
+const itemsQuery = query(
+  itemsRef, 
+  where("Barcode", "!=", "")   // create an boolean for selecting whether inventory or non inventory
+);
+
+// Execute the query
+const querySnapshotssss = await getDocs(itemsQuery);
+
+// Iterate over the query results
+querySnapshotssss.forEach((doc) => {
+  console.log(doc.id, " => ", doc.data());
+});
