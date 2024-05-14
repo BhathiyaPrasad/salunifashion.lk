@@ -85,6 +85,7 @@ const firebaseConfig = {
 // Organization document ID
 
 const orgDocId = "InterithmT3";  // organzation name
+const itemsListDiv = document.getElementById("itemlist");
 
 // Reference to the items subcollection within a specific organization
 const itemsRef = collection(doc(db, "organizations", orgDocId), "products_stock_management");
@@ -101,5 +102,59 @@ const querySnapshots = await getDocs(itemsQuery);
 // Iterate over the query results
 querySnapshots.forEach((doc) => {
   console.log(doc.id, " => ", doc.data());
-});
+
+ const item = doc.data();
+//  const itemDiv = document.createElement("div");
+//  itemDiv.textContent = `Item: ${item.Product_Name}, Barcode: ${item.Barcode}
+ 
+ const itemHtml = `
+          <div class="showcase">
+            <div class="showcase-banner">
+              <img src="${item.image1}" alt="${item.Product_Name}" class="product-img default" width="300">
+              <img src="${item.image2}" alt="${item.Product_Name}" class="product-img hover" width="300">
+              <div class="showcase-actions">
+                <button class="btn-action"><ion-icon name="heart-outline"></ion-icon></button>
+                <button class="btn-action"><ion-icon name="eye-outline"></ion-icon></button>
+                <button class="btn-action"><ion-icon name="repeat-outline"></ion-icon></button>
+                <button class="btn-action"><ion-icon name="bag-add-outline"></ion-icon></button>
+              </div>
+            </div>
+            <div class="showcase-content">
+              <br>
+              <a href="#" class="showcase-category">${item.category}</a>
+              <h3><a href="#" class="showcase-title">${item.name}</a></h3>
+              <div class="showcase-rating">
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+              </div>
+              <div class="price-box">
+                <p class="price">${item.price}</p>
+                <del>${item.oldPrice}</del>
+              </div>
+              <br>
+              <h5>
+                <button class="buybutton" 
+                  data-product-id="${doc.id}" 
+                  data-product-name="${item.name}" 
+                  data-product-image="${item.image1}" 
+                  data-product-price="${item.price}" 
+                  data-product-old-price="${item.oldPrice}" 
+                  data-product-imagetwo="${item.image2}">
+                  Add To Cart
+                </button>
+              </h5>
+              <br>
+            </div>
+          </div>`;
+        
+        itemsListDiv.insertAdjacentHTML('beforeend', itemHtml);
+      });
+
+ 
+
+
+
 
