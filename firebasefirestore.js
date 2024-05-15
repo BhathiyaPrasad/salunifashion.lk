@@ -111,7 +111,7 @@ querySnapshots.forEach((doc) => {
           <div class="showcase">
             <div class="showcase-banner">
               <img src="${item.Image_Location}" alt="${item.Product_Name}" class="product-img default" width="300">
-              <img src="${item.image2}" alt="${item.Product_Name}" class="product-img hover" width="300">
+              <img src="${item.Image_Location}" alt="${item.Product_Name}" class="product-img hover" width="300">
               <div class="showcase-actions">
                 <button class="btn-action"><ion-icon name="heart-outline"></ion-icon></button>
                 <button class="btn-action"><ion-icon name="eye-outline"></ion-icon></button>
@@ -121,8 +121,8 @@ querySnapshots.forEach((doc) => {
             </div>
             <div class="showcase-content">
               <br>
-              <a href="#" class="showcase-category">${item.Product_Name}</a>
-              <h3><a href="#" class="showcase-title">${item.Product_Name}</a></h3>
+              <a href="#" class="showcase-category">${item.Item_Name}</a>
+              <h3><a href="#" class="showcase-title">${item.Item_Name}</a></h3>
               <div class="showcase-rating">
                 <ion-icon name="star"></ion-icon>
                 <ion-icon name="star"></ion-icon>
@@ -131,18 +131,18 @@ querySnapshots.forEach((doc) => {
                 <ion-icon name="star"></ion-icon>
               </div>
               <div class="price-box">
-                <p class="price">${item.price}</p>
-                <del>${item.oldPrice}</del>
+                <p class="price">${item.Sales_Price}</p>
+                <del>${item.Sales_Price2}</del>
               </div>
               <br>
               <h5>
-                <button class="buybutton" 
+                <button class="buybutton"  
                   data-product-id="${doc.id}" 
-                  data-product-name="${item.name}" 
-                  data-product-image="${item.image1}" 
-                  data-product-price="${item.price}" 
-                  data-product-old-price="${item.oldPrice}" 
-                  data-product-imagetwo="${item.image2}">
+                  data-product-name="${item.Item_Name}" 
+                  data-product-image="${item.Image_Location}" 
+                  data-product-price="${item.Sales_Price}" 
+                  data-product-old-price="${item.Sales_Price}" 
+                  data-product-imagetwo="${item.Image_Location}">
                   Add To Cart
                 </button>
               </h5>
@@ -154,7 +154,31 @@ querySnapshots.forEach((doc) => {
       });
 
  
+      const buyButtons = document.querySelectorAll('.buybutton');
+      buyButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            const productId = event.target.getAttribute('data-product-id');
+            const productName = event.target.getAttribute('data-product-name');
+            const productImage = event.target.getAttribute('data-product-image');
+            const productPrice = event.target.getAttribute('data-product-price');
+            const productOldPrice = event.target.getAttribute('data-product-old-price');
+            const productImageTwo = event.target.getAttribute('data-product-imagetwo');
 
+            // Create a URL with query parameters
+            const url = new URL('products.html', window.location.origin);
+            url.searchParams.append('id', productId);
+            url.searchParams.append('name', productName);
+            url.searchParams.append('image', productImage);
+            url.searchParams.append('price', productPrice);
+            url.searchParams.append('oldPrice', productOldPrice);
+            url.searchParams.append('imageTwo', productImageTwo);
+
+            // Navigate to the new URL
+            window.location.href = url.toString();
+        });
+    });
+
+  
 
 
 
