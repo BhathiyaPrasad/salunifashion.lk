@@ -85,8 +85,9 @@ const firebaseConfig = {
 // Organization document ID
 
 const orgDocId = "InterithmT3";  // organzation name
-const itemsListDiv = document.getElementById("itemlist");
-const itemsListDivs = document.getElementById("itemlists");
+const itemsListDivmen = document.getElementById("men");
+const itemsListDivwomen = document.getElementById("women");
+const itemsListDivunisex = document.getElementById("unisex");
 // Reference to the items subcollection within a specific organization
 const itemsRef = collection(doc(db, "organizations", orgDocId), "items");
 
@@ -152,7 +153,7 @@ querySnapshots.forEach((doc) => {
             </div>
           </div>`;
         
-        itemsListDiv.insertAdjacentHTML('beforeend', itemHtml);
+        itemsListDivmen.insertAdjacentHTML('beforeend', itemHtml);
       });
 
  
@@ -216,9 +217,73 @@ querySnapshots.forEach((doc) => {
                   </div>
                 </div>`;
               
-              itemsListDivs.insertAdjacentHTML('beforeend', itemHtmls);
+              itemsListDivwomen.insertAdjacentHTML('beforeend', itemHtmls);
             });
       
+
+            const itemsQueryUnisex = query(
+              itemsRef,
+              where("Gender", "==", "female") // create an boolean for selecting
+            );
+            
+            // Execute the query
+            const querySnapshotsyUnisex = await getDocs(itemsQueryUnisex);
+           
+            
+            // Iterate over the query results
+            querySnapshotsyUnisex.forEach((doc) => {
+              console.log(doc.id, " => ", doc.data());
+            
+             const item = doc.data();
+            //  const itemDiv = document.createElement("div");
+            //  itemDiv.textContent = `Item: ${item.Product_Name}, Barcode: ${item.Barcode}
+             
+             const itemHtmls = `
+                      <div class="showcase">
+                        <div class="showcase-banner">
+                          <img src="${item.Image_Location}" alt="${item.Product_Name}" class="product-img default" width="300">
+                          <img src="${item.Image_Location}" alt="${item.Product_Name}" class="product-img hover" width="300">
+                          <div class="showcase-actions">
+                            <button class="btn-action"><ion-icon name="heart-outline"></ion-icon></button>
+                            <button class="btn-action"><ion-icon name="eye-outline"></ion-icon></button>
+                            <button class="btn-action"><ion-icon name="repeat-outline"></ion-icon></button>
+                            <button class="btn-action"><ion-icon name="bag-add-outline"></ion-icon></button>
+                          </div>
+                        </div>
+                        <div class="showcase-content">
+                          <br>
+                          <a href="#" class="showcase-category">${item.Item_Name}</a>
+                          <h3><a href="#" class="showcase-title">${item.Item_Name}</a></h3>
+                          <div class="showcase-rating">
+                            <ion-icon name="star"></ion-icon>
+                            <ion-icon name="star"></ion-icon>
+                            <ion-icon name="star"></ion-icon>
+                            <ion-icon name="star"></ion-icon>
+                            <ion-icon name="star"></ion-icon>
+                          </div>
+                          <div class="price-box">
+                            <p class="price">${item.Sales_Price}</p>
+                            <del>${item.Sales_Price2}</del>
+                          </div>
+                          <br>
+                          <h5>
+                            <button class="buybutton"  
+                              data-product-id="${doc.id}" 
+                              data-product-name="${item.Item_Name}" 
+                              data-product-image="${item.Image_Location}" 
+                              data-product-price="${item.Sales_Price}" 
+                              data-product-old-price="${item.Sales_Price}" 
+                              data-product-imagetwo="${item.Image_Location}">
+                              Add To Cart
+                            </button>
+                          </h5>
+                          <br>
+                        </div>
+                      </div>`;
+                    
+                    itemsListDivunisex.insertAdjacentHTML('beforeend', itemHtmls);
+                  });
+            
        
 
 
