@@ -223,7 +223,7 @@ querySnapshots.forEach((doc) => {
 
             const itemsQueryUnisex = query(
               itemsRef,
-              where("Gender", "==", "female") // create an boolean for selecting
+              where("Gender", "==", "unisex") // create an boolean for selecting
             );
             
             // Execute the query
