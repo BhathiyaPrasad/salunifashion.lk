@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const productImage = event.target.dataset.productImage;
         const productPrice = event.target.dataset.productPrice;
         const productOldPrice = event.target.dataset.productOldPrice;
-        const productimagetwo = event.target.dataset.productImagetwo;
+        const productimagetwo = event.target.dataset.productImage2;
 
         // this is for testing
         console.log('Product ID:', productId);
