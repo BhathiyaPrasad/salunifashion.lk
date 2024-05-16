@@ -115,7 +115,7 @@ querySnapshots.forEach((doc) => {
           <div class="showcase">
             <div class="showcase-banner">
               <img src="${item.Image_Location}" alt="${item.Product_Name}" class="product-img default" width="300">
-              <img src="${item.Image_Location}" alt="${item.Product_Name}" class="product-img hover" width="300">
+              <img src="${item.Image_Location2}" alt="${item.Product_Name}" class="product-img hover" width="300">
               <div class="showcase-actions">
                 <button class="btn-action"><ion-icon name="heart-outline"></ion-icon></button>
                 <button class="btn-action"><ion-icon name="eye-outline"></ion-icon></button>
@@ -146,7 +146,9 @@ querySnapshots.forEach((doc) => {
                   data-product-image="${item.Image_Location}" 
                   data-product-price="${item.Sales_Price}" 
                   data-product-old-price="${item.Sales_Price}" 
-                  data-product-imagetwo="${item.Image_Location}">
+                  data-product-imagetwo="${item.Image_Location2}"
+                  data-product-imageThree="${item.Image_Location3}"
+                  data-product-imageFour="${item.Image_Location4}">
                   Add To Cart
                 </button>
               </h5>
@@ -180,7 +182,7 @@ querySnapshots.forEach((doc) => {
                 <div class="showcase">
                   <div class="showcase-banner">
                     <img src="${item.Image_Location}" alt="${item.Product_Name}" class="product-img default" width="300">
-                    <img src="${item.Image_Location}" alt="${item.Product_Name}" class="product-img hover" width="300">
+                    <img src="${item.Image_Location2}" alt="${item.Product_Name}" class="product-img hover" width="300">
                     <div class="showcase-actions">
                       <button class="btn-action"><ion-icon name="heart-outline"></ion-icon></button>
                       <button class="btn-action"><ion-icon name="eye-outline"></ion-icon></button>
@@ -211,7 +213,9 @@ querySnapshots.forEach((doc) => {
                         data-product-image="${item.Image_Location}" 
                         data-product-price="${item.Sales_Price}" 
                         data-product-old-price="${item.Sales_Price}" 
-                        data-product-imagetwo="${item.Image_Location}">
+                        data-product-imagetwo="${item.Image_Location2}
+                        data-product-imageThree="${item.Image_Location3}"
+                        data-product-imageFour="${item.Image_Location4}">
                         Add To Cart
                       </button>
                     </h5>
@@ -245,7 +249,7 @@ querySnapshots.forEach((doc) => {
                       <div class="showcase">
                         <div class="showcase-banner">
                           <img src="${item.Image_Location}" alt="${item.Product_Name}" class="product-img default" width="300">
-                          <img src="${item.Image_Location}" alt="${item.Product_Name}" class="product-img hover" width="300">
+                          <img src="${item.Image_Location2}" alt="${item.Product_Name}" class="product-img hover" width="300">
                           <div class="showcase-actions">
                             <button class="btn-action"><ion-icon name="heart-outline"></ion-icon></button>
                             <button class="btn-action"><ion-icon name="eye-outline"></ion-icon></button>
@@ -276,7 +280,9 @@ querySnapshots.forEach((doc) => {
                               data-product-image="${item.Image_Location}" 
                               data-product-price="${item.Sales_Price}" 
                               data-product-old-price="${item.Sales_Price}" 
-                              data-product-imagetwo="${item.Image_Location}">
+                              data-product-imagetwo="${item.Image_Location2}"
+                              data-product-imageThree="${item.Image_Location3}"
+                              data-product-imageFour="${item.Image_Location4}">
                               Add To Cart
                             </button>
                           </h5>
@@ -317,6 +323,8 @@ querySnapshots.forEach((doc) => {
             const productPrice = event.target.getAttribute('data-product-price');
             const productOldPrice = event.target.getAttribute('data-product-old-price');
             const productImageTwo = event.target.getAttribute('data-product-imagetwo');
+            const productImageThree = event.target.getAttribute('data-product-imageThree');
+            const productImageFour = event.target.getAttribute('data-product-imageFour');
 
             // Create a URL with query parameters
             const url = new URL('products.html', window.location.origin);
@@ -326,6 +334,8 @@ querySnapshots.forEach((doc) => {
             url.searchParams.append('price', productPrice);
             url.searchParams.append('oldPrice', productOldPrice);
             url.searchParams.append('imageTwo', productImageTwo);
+            url.searchParams.append('imageThree', productImageThree);
+            url.searchParams.append('imageFour', productImageFour);
 
             // Navigate to the new URL
             window.location.href = url.toString();
