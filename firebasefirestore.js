@@ -1,29 +1,29 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
-import{getFirestore, setDoc, doc, getDoc, collection, query, where, getDocs, orderBy} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+import { getFirestore, setDoc, doc, getDoc, collection, query, where, getDocs, orderBy } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDLa_nr_0c0kudQSzcGV5hkwq3WH2bRGgo",
-    authDomain: "freidea-pos.firebaseapp.com",
-    projectId: "freidea-pos",
-    storageBucket: "freidea-pos.appspot.com",
-    messagingSenderId: "317401437770",
-    appId: "1:317401437770:web:2657a877ea9fe88cf878b3",
-    measurementId: "G-M8RF0RL2FP"
- };
+  apiKey: "AIzaSyDLa_nr_0c0kudQSzcGV5hkwq3WH2bRGgo",
+  authDomain: "freidea-pos.firebaseapp.com",
+  projectId: "freidea-pos",
+  storageBucket: "freidea-pos.appspot.com",
+  messagingSenderId: "317401437770",
+  appId: "1:317401437770:web:2657a877ea9fe88cf878b3",
+  measurementId: "G-M8RF0RL2FP"
+};
 
- // Initialize Firebase
- const app = initializeApp(firebaseConfig);
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
- // Initialize Firebase FireStore
- const db  = getFirestore(app);
+// Initialize Firebase FireStore
+const db = getFirestore(app);
 
 
 
- // retrieve firebase data
+// retrieve firebase data
 
- 
-  
- 
+
+
+
 
 //   const docRef = doc(db, "cities", "DC");
 //   const docSnap = await getDoc(docRef);
@@ -49,7 +49,7 @@ const firebaseConfig = {
 
 
 //   const q = query(collection(db, "cities"), where("capital", "==", true));
-  
+
 //   const querySnapshot = await getDocs(q);
 //   querySnapshot.forEach((doc) => {
 //     // doc.data() is never undefined for query doc snapshots
@@ -70,10 +70,10 @@ const firebaseConfig = {
 //   querySnapshotss.forEach((doc) => {
 //     console.log(doc.id, " => ", doc.data());    
 //   });
-  
+
 
 //   const qq = query(collection(db, "organizations"),("Interithm"), collection("items"), where("Barcode", "==", "577348840"));
-  
+
 //   const querySnapshotsss = await getDocs(qq);
 //   querySnapshotsss.forEach((doc) => {
 //     // doc.data() is never undefined for query doc snapshots
@@ -93,7 +93,7 @@ const itemsRef = collection(doc(db, "organizations", orgDocId), "items");
 
 // Create a query to find the document within the subcollection "items"
 const itemsQuery = query(
-  itemsRef, 
+  itemsRef,
   where("Gender", "==", "male"),
   orderBy("Cat_Name")   // create an boolean for selecting whether inventory or non inventory
 );
@@ -107,11 +107,11 @@ const querySnapshots = await getDocs(itemsQuery);
 querySnapshots.forEach((doc) => {
   console.log(doc.id, " => ", doc.data());
 
- const item = doc.data();
-//  const itemDiv = document.createElement("div");
-//  itemDiv.textContent = `Item: ${item.Product_Name}, Barcode: ${item.Barcode}
- 
- const itemHtml = `
+  const item = doc.data();
+  //  const itemDiv = document.createElement("div");
+  //  itemDiv.textContent = `Item: ${item.Product_Name}, Barcode: ${item.Barcode}
+
+  const itemHtml = `
           <div class="showcase">
             <div class="showcase-banner">
               <img src="${item.Image_Location}" alt="${item.Product_Name}" class="product-img default" width="300">
@@ -155,30 +155,30 @@ querySnapshots.forEach((doc) => {
               <br>
             </div>
           </div>`;
-        
-        itemsListDivmen.insertAdjacentHTML('beforeend', itemHtml);
-      });
 
- 
-      const itemsQueryWomen = query(
-        itemsRef,
-        where("Gender", "==", "female"),
-        orderBy("Cat_Name") // create an boolean for selecting
-      );
-      
-      // Execute the query
-      const querySnapshotsWomen = await getDocs(itemsQueryWomen);
-     
-      
-      // Iterate over the query results
-      querySnapshotsWomen.forEach((doc) => {
-        console.log(doc.id, " => ", doc.data());
-      
-       const item = doc.data();
-      //  const itemDiv = document.createElement("div");
-      //  itemDiv.textContent = `Item: ${item.Product_Name}, Barcode: ${item.Barcode}
-       
-       const itemHtmls = `
+  itemsListDivmen.insertAdjacentHTML('beforeend', itemHtml);
+});
+
+
+const itemsQueryWomen = query(
+  itemsRef,
+  where("Gender", "==", "female"),
+  orderBy("Cat_Name") // create an boolean for selecting
+);
+
+// Execute the query
+const querySnapshotsWomen = await getDocs(itemsQueryWomen);
+
+
+// Iterate over the query results
+querySnapshotsWomen.forEach((doc) => {
+  console.log(doc.id, " => ", doc.data());
+
+  const item = doc.data();
+  //  const itemDiv = document.createElement("div");
+  //  itemDiv.textContent = `Item: ${item.Product_Name}, Barcode: ${item.Barcode}
+
+  const itemHtmls = `
                 <div class="showcase">
                   <div class="showcase-banner">
                     <img src="${item.Image_Location}" alt="${item.Product_Name}" class="product-img default" width="300">
@@ -222,30 +222,30 @@ querySnapshots.forEach((doc) => {
                     <br>
                   </div>
                 </div>`;
-              
-              itemsListDivwomen.insertAdjacentHTML('beforeend', itemHtmls);
-            });
-      
 
-            const itemsQueryUnisex = query(
-              itemsRef,
-              where("Gender", "==", "unisex"),
-              orderBy("Cat_Name") // create an boolean for selecting
-            );
-            
-            // Execute the query
-            const querySnapshotsyUnisex = await getDocs(itemsQueryUnisex);
-           
-            
-            // Iterate over the query results
-            querySnapshotsyUnisex.forEach((doc) => {
-              console.log(doc.id, " => ", doc.data());
-            
-             const item = doc.data();
-            //  const itemDiv = document.createElement("div");
-            //  itemDiv.textContent = `Item: ${item.Product_Name}, Barcode: ${item.Barcode}
-             
-             const itemHtmls = `
+  itemsListDivwomen.insertAdjacentHTML('beforeend', itemHtmls);
+});
+
+
+const itemsQueryUnisex = query(
+  itemsRef,
+  where("Gender", "==", "unisex"),
+  orderBy("Cat_Name") // create an boolean for selecting
+);
+
+// Execute the query
+const querySnapshotsyUnisex = await getDocs(itemsQueryUnisex);
+
+
+// Iterate over the query results
+querySnapshotsyUnisex.forEach((doc) => {
+  console.log(doc.id, " => ", doc.data());
+
+  const item = doc.data();
+  //  const itemDiv = document.createElement("div");
+  //  itemDiv.textContent = `Item: ${item.Product_Name}, Barcode: ${item.Barcode}
+
+  const itemHtmls = `
                       <div class="showcase">
                         <div class="showcase-banner">
                           <img src="${item.Image_Location}" alt="${item.Product_Name}" class="product-img default" width="300">
@@ -289,11 +289,9 @@ querySnapshots.forEach((doc) => {
                           <br>
                         </div>
                       </div>`;
-                    
-                    itemsListDivunisex.insertAdjacentHTML('beforeend', itemHtmls);
-                  });
-            
-       
+
+  itemsListDivunisex.insertAdjacentHTML('beforeend', itemHtmls);
+});
 
 
 
@@ -314,37 +312,39 @@ querySnapshots.forEach((doc) => {
 
 
 
-      const buyButtons = document.querySelectorAll('.buybutton');
-      buyButtons.forEach(button => {
-        button.addEventListener('click', (event) => {
-            const productId = event.target.getAttribute('data-product-id');
-            const productName = event.target.getAttribute('data-product-name');
-            const productImage = event.target.getAttribute('data-product-image');
-            const productPrice = event.target.getAttribute('data-product-price');
-            const productOldPrice = event.target.getAttribute('data-product-old-price');
-            const productImageTwo = event.target.getAttribute('data-product-imagetwo');
-            const productImageThree = event.target.getAttribute('data-product-imageThree');
-            const productImageFour = event.target.getAttribute('data-product-imageFour');
 
-            // Create a URL with query parameters
-            const url = new URL('products.html', window.location.origin);
-            url.searchParams.append('id', productId);
-            url.searchParams.append('name', productName);
-            url.searchParams.append('image', productImage);
-            url.searchParams.append('price', productPrice);
-            url.searchParams.append('oldPrice', productOldPrice);
-            url.searchParams.append('imageTwo', productImageTwo);
-            url.searchParams.append('imageThree', productImageThree);
-            url.searchParams.append('imageFour', productImageFour);
 
-            // Navigate to the new URL
-            window.location.href = url.toString();
-        });
-    });
+const buyButtons = document.querySelectorAll('.buybutton');
+buyButtons.forEach(button => {
+  button.addEventListener('click', (event) => {
+    const productId = event.target.getAttribute('data-product-id');
+    const productName = event.target.getAttribute('data-product-name');
+    const productImage = event.target.getAttribute('data-product-image');
+    const productPrice = event.target.getAttribute('data-product-price');
+    const productOldPrice = event.target.getAttribute('data-product-old-price');
+    const productImageTwo = event.target.getAttribute('data-product-imagetwo');
+    const productImageThree = event.target.getAttribute('data-product-imageThree');
+    const productImageFour = event.target.getAttribute('data-product-imageFour');
 
-    
+    // Create a URL with query parameters
+    const url = new URL('products.html', window.location.origin);
+    url.searchParams.append('id', productId);
+    url.searchParams.append('name', productName);
+    url.searchParams.append('image', productImage);
+    url.searchParams.append('price', productPrice);
+    url.searchParams.append('oldPrice', productOldPrice);
+    url.searchParams.append('imageTwo', productImageTwo);
+    url.searchParams.append('imageThree', productImageThree);
+    url.searchParams.append('imageFour', productImageFour);
 
-  
+    // Navigate to the new URL
+    window.location.href = url.toString();
+  });
+});
+
+
+
+
 
 
 
