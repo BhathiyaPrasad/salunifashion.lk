@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
-import{getFirestore, setDoc, doc, getDoc, collection, query, where, getDocs} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+import{getFirestore, setDoc, doc, getDoc, collection, query, where, getDocs, orderBy} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDLa_nr_0c0kudQSzcGV5hkwq3WH2bRGgo",
@@ -94,7 +94,8 @@ const itemsRef = collection(doc(db, "organizations", orgDocId), "items");
 // Create a query to find the document within the subcollection "items"
 const itemsQuery = query(
   itemsRef, 
-  where("Gender", "==", "male")   // create an boolean for selecting whether inventory or non inventory
+  where("Gender", "==", "male"),
+  orderBy("Cat_Name")   // create an boolean for selecting whether inventory or non inventory
 );
 
 
@@ -159,7 +160,8 @@ querySnapshots.forEach((doc) => {
  
       const itemsQueryWomen = query(
         itemsRef,
-        where("Gender", "==", "female") // create an boolean for selecting
+        where("Gender", "==", "female"),
+        orderBy("Cat_Name") // create an boolean for selecting
       );
       
       // Execute the query
@@ -223,7 +225,8 @@ querySnapshots.forEach((doc) => {
 
             const itemsQueryUnisex = query(
               itemsRef,
-              where("Gender", "==", "unisex") // create an boolean for selecting
+              where("Gender", "==", "unisex"),
+              orderBy("Cat_Name") // create an boolean for selecting
             );
             
             // Execute the query
