@@ -342,7 +342,7 @@ const itemsRefff = collection(doc(db, "organizations", orgDocId), "items");
 // Query to find documents in the 'items' collection where 'item_id' is not empty
 const itemsQueryyy = query(
   itemsRefff,
-  where("Gender", "==", "female"),
+  where("Gender", "==", "unisex"),
   orderBy("Cat_Name")
 );
 
@@ -350,7 +350,7 @@ const itemsQueryyy = query(
 const itemQuerySnapshottt = await getDocs(itemsQueryyy);
 
 // Array to store promises of queries
-const promisessss = [];
+const promisesss = [];
 const itemsDataaa = [];
 
 // Iterate over the documents in the 'items' collection
@@ -359,27 +359,27 @@ itemQuerySnapshottt.forEach((itemDoc) => {
   itemsDataaa.push(itemData);
 
   // Reference to the 'products_stock_management' collection
-  const productsStockRef = collection(doc(db, "organizations", orgDocId), "products_stock_management");
+  const productsStockReff = collection(doc(db, "organizations", orgDocId), "products_stock_management");
 
   // Query to find documents in the 'products_stock_management' collection where 'product_id' is equal to the 'item_id' from 'items' collection
   const productsStockQueryyy = query(
-    productsStockRef,
+    productsStockReff,
     where("Product_ID", "==", itemData.Item_ID)
   );
 
   // Add the promise of the query to the array
-  promisess.push(getDocs(productsStockQueryyy));
+  promisesss.push(getDocs(productsStockQueryyy));
 });
 
 // Wait for all promises to resolve
 const snapshotssss = await Promise.all(promisesss);
 
 // Array to store matching documents
-const aggregatedDataa = [];
+const aggregatedDataaa = [];
 
 // Iterate over the query snapshots
-snapshotss.forEach((productsStockSnapshott, index) => {
-  const itemData = itemsDataa[index];
+snapshotssss.forEach((productsStockSnapshott, index) => {
+  const itemData = itemsDataaa[index];
 
   // Iterate over the documents in the 'products_stock_management' collection
   productsStockSnapshott.forEach((productStockDocc) => {
@@ -392,12 +392,12 @@ snapshotss.forEach((productsStockSnapshott, index) => {
     };
 
     // Add the merged data to the array
-    aggregatedDataa.push(mergedData);
+    aggregatedDataaa.push(mergedData);
   });
 });
 
 // Output the aggregated data
-console.log("Aggregated Data:", aggregatedDataa);
+console.log("Aggregated Data:", aggregatedDataaa);
 
 // Access and manipulate the aggregated data
 aggregatedDataa.forEach((data) => {
@@ -452,7 +452,7 @@ aggregatedDataa.forEach((data) => {
     </div>
   </div>`;
 
-itemsListDivwomen.insertAdjacentHTML('beforeend', itemHtml);
+  itemsListDivunisex.insertAdjacentHTML('beforeend', itemHtml);
 });
 
 
