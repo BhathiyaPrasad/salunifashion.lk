@@ -216,138 +216,245 @@ itemsListDivmen.insertAdjacentHTML('beforeend', itemHtml);
 
 
 
-const itemsQueryWomen = query(
-  itemsRef,
+// Reference to the 'items' collection
+const itemsReff = collection(doc(db, "organizations", orgDocId), "items");
+
+// Query to find documents in the 'items' collection where 'item_id' is not empty
+const itemsQueryy = query(
+  itemsReff,
   where("Gender", "==", "female"),
-  orderBy("Cat_Name") // create an boolean for selecting
+  orderBy("Cat_Name")
 );
 
-// Execute the query
-const querySnapshotsWomen = await getDocs(itemsQueryWomen);
+// Retrieve documents from the 'items' collection
+const itemQuerySnapshott = await getDocs(itemsQueryy);
 
+// Array to store promises of queries
+const promisess = [];
+const itemsDataa = [];
 
-// Iterate over the query results
-querySnapshotsWomen.forEach((doc) => {
-  console.log(doc.id, " => ", doc.data());
+// Iterate over the documents in the 'items' collection
+itemQuerySnapshott.forEach((itemDoc) => {
+  const itemData = itemDoc.data();
+  itemsDataa.push(itemData);
 
-  const item = doc.data();
-  //  const itemDiv = document.createElement("div");
-  //  itemDiv.textContent = `Item: ${item.Product_Name}, Barcode: ${item.Barcode}
+  // Reference to the 'products_stock_management' collection
+  const productsStockRef = collection(doc(db, "organizations", orgDocId), "products_stock_management");
 
-  const itemHtmls = `
-                <div class="showcase">
-                  <div class="showcase-banner">
-                    <img src="${item.Image_Location}" alt="${item.Product_Name}" class="product-img default" width="300">
-                    <img src="${item.Image_Location2}" alt="${item.Product_Name}" class="product-img hover" width="300">
-                    <div class="showcase-actions">
-                      <button class="btn-action"><ion-icon name="heart-outline"></ion-icon></button>
-                      <button class="btn-action"><ion-icon name="eye-outline"></ion-icon></button>
-                      <button class="btn-action"><ion-icon name="repeat-outline"></ion-icon></button>
-                      <button class="btn-action"><ion-icon name="bag-add-outline"></ion-icon></button>
-                    </div>
-                  </div>
-                  <div class="showcase-content">
-                    <br>
-                    <a href="#" class="showcase-category">${item.Item_Name}</a>
-                    <h3><a href="#" class="showcase-title">${item.Item_Name}</a></h3>
-                    <div class="showcase-rating">
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                    </div>
-                    <div class="price-box">
-                      <p class="price">${item.Sales_Price}</p>
-                      <del>${item.Sales_Price2}</del>
-                    </div>
-                    <br>
-                    <h5>
-                      <button class="buybutton"  
-                        data-product-id="${doc.id}" 
-                        data-product-name="${item.Item_Name}" 
-                        data-product-image="${item.Image_Location}" 
-                        data-product-price="${item.Sales_Price}" 
-                        data-product-old-price="${item.Sales_Price}" 
-                        data-product-imagetwo="${item.Image_Location2}
-                        data-product-imageThree="${item.Image_Location3}"
-                        data-product-imageFour="${item.Image_Location4}">
-                        Add To Cart
-                      </button>
-                    </h5>
-                    <br>
-                  </div>
-                </div>`;
+  // Query to find documents in the 'products_stock_management' collection where 'product_id' is equal to the 'item_id' from 'items' collection
+  const productsStockQueryy = query(
+    productsStockRef,
+    where("Product_ID", "==", itemData.Item_ID)
+  );
 
-  itemsListDivwomen.insertAdjacentHTML('beforeend', itemHtmls);
+  // Add the promise of the query to the array
+  promisess.push(getDocs(productsStockQueryy));
+});
+
+// Wait for all promises to resolve
+const snapshotss = await Promise.all(promisess);
+
+// Array to store matching documents
+const aggregatedDataa = [];
+
+// Iterate over the query snapshots
+snapshotss.forEach((productsStockSnapshott, index) => {
+  const itemData = itemsDataa[index];
+
+  // Iterate over the documents in the 'products_stock_management' collection
+  productsStockSnapshott.forEach((productStockDocc) => {
+    const productStockDataa = productStockDocc.data();
+
+    // Merge item data with product stock data
+    const mergedData = {
+      ...itemData,
+      productStock: productStockDataa
+    };
+
+    // Add the merged data to the array
+    aggregatedDataa.push(mergedData);
+  });
+});
+
+// Output the aggregated data
+console.log("Aggregated Data:", aggregatedDataa);
+
+// Access and manipulate the aggregated data
+aggregatedDataa.forEach((data) => {
+  // Example: Log each item's name and stock quantity
+  console.log(`Item: ${data.Item_ID}`);
+  console.log(`Name: ${data.Item_Name}`);
+  console.log(`Stock Quantity: ${data.productStock.Available_Qty}`);
+  console.log('-----------------------');
+  
+  const itemHtml = `
+  <div class="showcase">
+    <div class="showcase-banner">
+      <img src="${data.Image_Location}" alt="${data.Product_Name}" class="product-img default" width="300">
+      <img src="${data.Image_Location2}" alt="${data.Product_Name}" class="product-img hover" width="300">
+      <div class="showcase-actions">
+        <button class="btn-action"><ion-icon name="heart-outline"></ion-icon></button>
+        <button class="btn-action"><ion-icon name="eye-outline"></ion-icon></button>
+        <button class="btn-action"><ion-icon name="repeat-outline"></ion-icon></button>
+        <button class="btn-action"><ion-icon name="bag-add-outline"></ion-icon></button>
+      </div>
+    </div>
+    <div class="showcase-content">
+      <br>
+      <a href="#" class="showcase-category">${data.Item_Name}</a>
+      <h3><a href="#" class="showcase-title">${data.Item_Name}</a></h3>
+      <div class="showcase-rating">
+        <ion-icon name="star"></ion-icon>
+        <ion-icon name="star"></ion-icon>
+        <ion-icon name="star"></ion-icon>
+        <ion-icon name="star"></ion-icon>
+        <ion-icon name="star"></ion-icon>
+      </div>
+      <div class="price-box">
+        <p class="price">${data.Sales_Price}</p>
+        <del>${data.Sales_Price2}</del>
+      </div>
+      <br>
+      <h5>
+        <button class="buybutton"  
+          data-product-id="${data.productStock.Available_Qty}" 
+          data-product-name="${data.Item_Name}" 
+          data-product-image="${data.Image_Location}" 
+          data-product-price="${data.Sales_Price}" 
+          data-product-old-price="${data.Sales_Price}" 
+          data-product-imagetwo="${data.Image_Location2}"
+          data-product-imageThree="${data.Image_Location3}"
+          data-product-imageFour="${data.Image_Location4}">
+          Add To Cart
+        </button>
+      </h5>
+      <br>
+    </div>
+  </div>`;
+
+itemsListDivwomen.insertAdjacentHTML('beforeend', itemHtml);
 });
 
 
-const itemsQueryUnisex = query(
-  itemsRef,
-  where("Gender", "==", "unisex"),
-  orderBy("Cat_Name") // create an boolean for selecting
+// Reference to the 'items' collection
+const itemsRefff = collection(doc(db, "organizations", orgDocId), "items");
+
+// Query to find documents in the 'items' collection where 'item_id' is not empty
+const itemsQueryyy = query(
+  itemsRefff,
+  where("Gender", "==", "female"),
+  orderBy("Cat_Name")
 );
 
-// Execute the query
-const querySnapshotsyUnisex = await getDocs(itemsQueryUnisex);
+// Retrieve documents from the 'items' collection
+const itemQuerySnapshottt = await getDocs(itemsQueryyy);
 
+// Array to store promises of queries
+const promisessss = [];
+const itemsDataaa = [];
 
-// Iterate over the query results
-querySnapshotsyUnisex.forEach((doc) => {
-  console.log(doc.id, " => ", doc.data());
+// Iterate over the documents in the 'items' collection
+itemQuerySnapshottt.forEach((itemDoc) => {
+  const itemData = itemDoc.data();
+  itemsDataaa.push(itemData);
 
-  const item = doc.data();
-  //  const itemDiv = document.createElement("div");
-  //  itemDiv.textContent = `Item: ${item.Product_Name}, Barcode: ${item.Barcode}
+  // Reference to the 'products_stock_management' collection
+  const productsStockRef = collection(doc(db, "organizations", orgDocId), "products_stock_management");
 
-  const itemHtmls = `
-                      <div class="showcase">
-                        <div class="showcase-banner">
-                          <img src="${item.Image_Location}" alt="${item.Product_Name}" class="product-img default" width="300">
-                          <img src="${item.Image_Location2}" alt="${item.Product_Name}" class="product-img hover" width="300">
-                          <div class="showcase-actions">
-                            <button class="btn-action"><ion-icon name="heart-outline"></ion-icon></button>
-                            <button class="btn-action"><ion-icon name="eye-outline"></ion-icon></button>
-                            <button class="btn-action"><ion-icon name="repeat-outline"></ion-icon></button>
-                            <button class="btn-action"><ion-icon name="bag-add-outline"></ion-icon></button>
-                          </div>
-                        </div>
-                        <div class="showcase-content">
-                          <br>
-                          <a href="#" class="showcase-category">${item.Item_Name}</a>
-                          <h3><a href="#" class="showcase-title">${item.Item_Name}</a></h3>
-                          <div class="showcase-rating">
-                            <ion-icon name="star"></ion-icon>
-                            <ion-icon name="star"></ion-icon>
-                            <ion-icon name="star"></ion-icon>
-                            <ion-icon name="star"></ion-icon>
-                            <ion-icon name="star"></ion-icon>
-                          </div>
-                          <div class="price-box">
-                            <p class="price">${item.Sales_Price}</p>
-                            <del>${item.Sales_Price2}</del>
-                          </div>
-                          <br>
-                          <h5>
-                            <button class="buybutton"  
-                              data-product-id="${doc.id}" 
-                              data-product-name="${item.Item_Name}" 
-                              data-product-image="${item.Image_Location}" 
-                              data-product-price="${item.Sales_Price}" 
-                              data-product-old-price="${item.Sales_Price}" 
-                              data-product-imagetwo="${item.Image_Location2}"
-                              data-product-imageThree="${item.Image_Location3}"
-                              data-product-imageFour="${item.Image_Location4}">
-                              Add To Cart
-                            </button>
-                          </h5>
-                          <br>
-                        </div>
-                      </div>`;
+  // Query to find documents in the 'products_stock_management' collection where 'product_id' is equal to the 'item_id' from 'items' collection
+  const productsStockQueryyy = query(
+    productsStockRef,
+    where("Product_ID", "==", itemData.Item_ID)
+  );
 
-  itemsListDivunisex.insertAdjacentHTML('beforeend', itemHtmls);
+  // Add the promise of the query to the array
+  promisess.push(getDocs(productsStockQueryyy));
 });
+
+// Wait for all promises to resolve
+const snapshotssss = await Promise.all(promisesss);
+
+// Array to store matching documents
+const aggregatedDataa = [];
+
+// Iterate over the query snapshots
+snapshotss.forEach((productsStockSnapshott, index) => {
+  const itemData = itemsDataa[index];
+
+  // Iterate over the documents in the 'products_stock_management' collection
+  productsStockSnapshott.forEach((productStockDocc) => {
+    const productStockDataa = productStockDocc.data();
+
+    // Merge item data with product stock data
+    const mergedData = {
+      ...itemData,
+      productStock: productStockDataa
+    };
+
+    // Add the merged data to the array
+    aggregatedDataa.push(mergedData);
+  });
+});
+
+// Output the aggregated data
+console.log("Aggregated Data:", aggregatedDataa);
+
+// Access and manipulate the aggregated data
+aggregatedDataa.forEach((data) => {
+  // Example: Log each item's name and stock quantity
+  console.log(`Item: ${data.Item_ID}`);
+  console.log(`Name: ${data.Item_Name}`);
+  console.log(`Stock Quantity: ${data.productStock.Available_Qty}`);
+  console.log('-----------------------');
+  
+  const itemHtml = `
+  <div class="showcase">
+    <div class="showcase-banner">
+      <img src="${data.Image_Location}" alt="${data.Product_Name}" class="product-img default" width="300">
+      <img src="${data.Image_Location2}" alt="${data.Product_Name}" class="product-img hover" width="300">
+      <div class="showcase-actions">
+        <button class="btn-action"><ion-icon name="heart-outline"></ion-icon></button>
+        <button class="btn-action"><ion-icon name="eye-outline"></ion-icon></button>
+        <button class="btn-action"><ion-icon name="repeat-outline"></ion-icon></button>
+        <button class="btn-action"><ion-icon name="bag-add-outline"></ion-icon></button>
+      </div>
+    </div>
+    <div class="showcase-content">
+      <br>
+      <a href="#" class="showcase-category">${data.Item_Name}</a>
+      <h3><a href="#" class="showcase-title">${data.Item_Name}</a></h3>
+      <div class="showcase-rating">
+        <ion-icon name="star"></ion-icon>
+        <ion-icon name="star"></ion-icon>
+        <ion-icon name="star"></ion-icon>
+        <ion-icon name="star"></ion-icon>
+        <ion-icon name="star"></ion-icon>
+      </div>
+      <div class="price-box">
+        <p class="price">${data.Sales_Price}</p>
+        <del>${data.Sales_Price2}</del>
+      </div>
+      <br>
+      <h5>
+        <button class="buybutton"  
+          data-product-id="${data.productStock.Available_Qty}" 
+          data-product-name="${data.Item_Name}" 
+          data-product-image="${data.Image_Location}" 
+          data-product-price="${data.Sales_Price}" 
+          data-product-old-price="${data.Sales_Price}" 
+          data-product-imagetwo="${data.Image_Location2}"
+          data-product-imageThree="${data.Image_Location3}"
+          data-product-imageFour="${data.Image_Location4}">
+          Add To Cart
+        </button>
+      </h5>
+      <br>
+    </div>
+  </div>`;
+
+itemsListDivwomen.insertAdjacentHTML('beforeend', itemHtml);
+});
+
 
 
 
