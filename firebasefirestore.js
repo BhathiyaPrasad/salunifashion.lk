@@ -400,7 +400,7 @@ snapshotssss.forEach((productsStockSnapshott, index) => {
 console.log("Aggregated Data:", aggregatedDataaa);
 
 // Access and manipulate the aggregated data
-aggregatedDataa.forEach((data) => {
+aggregatedDataaa.forEach((data) => {
   // Example: Log each item's name and stock quantity
   console.log(`Item: ${data.Item_ID}`);
   console.log(`Name: ${data.Item_Name}`);
