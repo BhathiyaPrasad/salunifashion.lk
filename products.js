@@ -1,7 +1,6 @@
 // firebaseConfig.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
-import { doc, setDoc } from "firebase/firestore"; 
+import { getFirestore, setDoc, doc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -21,12 +20,19 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const orgDocId = "InterithmT3";
 
-// Add a new document in collection "cities"
-await setDoc(collection(doc(db, "organizations", orgDocId), "cart")), {
-  name: "Los Angeles",
-  state: "CA",
-  country: "USA"
-};
+// Function to add a new document in collection "cart"
+async function addCity() {
+    try {
+        await setDoc(doc(collection(doc(db, "organizations", orgDocId), "cart")), {
+            name: "Los Angeles",
+            state: "CA",
+            country: "USA"
+        });
+        console.log("Document successfully written!");
+    } catch (e) {
+        console.error("Error writing document: ", e);
+    }
+}
 
-
-// const itemsRefff = collection(doc(db, "organizations", orgDocId), "items");
+// Export the Firestore instance and addCity function
+export { db, addCity };
