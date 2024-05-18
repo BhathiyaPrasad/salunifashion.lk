@@ -1,45 +1,32 @@
-document.addEventListener("DOMContentLoaded", function () {
-    // Select all buttons with class buybutton
-    const buyButtons = document.querySelectorAll('.buybutton');
+// firebaseConfig.js
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+import { doc, setDoc } from "firebase/firestore"; 
 
-    // Function to be executed when a button is clicked
-    function handleClick(event) {
-        // Get the data associated with the clicked button
-        const productId = event.target.dataset.productId;
-        const productName = event.target.dataset.productName;
-        const productImage = event.target.dataset.productImage;
-        const productPrice = event.target.dataset.productPrice;
-        const productOldPrice = event.target.dataset.productOldPrice;
-        const productimagetwo = event.target.dataset.productImage2;
+// Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyDLa_nr_0c0kudQSzcGV5hkwq3WH2bRGgo",
+    authDomain: "freidea-pos.firebaseapp.com",
+    projectId: "freidea-pos",
+    storageBucket: "freidea-pos.appspot.com",
+    messagingSenderId: "317401437770",
+    appId: "1:317401437770:web:2657a877ea9fe88cf878b3",
+    measurementId: "G-M8RF0RL2FP"
+};
 
-        // this is for testing
-        console.log('Product ID:', productId);
-        console.log('Product Name:', productName);
-        console.log('Product image:', productImage);
-        console.log('product price:', productPrice);
-        console.log('productOldPrice:', productOldPrice);
-        console.log('productImagetwo:', productimagetwo);
-        // setup allrechords in browser localstorage
-        localStorage.setItem('productId', productId);
-        localStorage.setItem('productName', productName);
-        localStorage.setItem('productImage', productImage);
-        localStorage.setItem('productPrice', productPrice);
-        localStorage.setItem('productOldPrice', productOldPrice);
-        localStorage.setItem('productimagetwo', productimagetwo);
+// Initialize Firebase app
+const app = initializeApp(firebaseConfig);
 
+// Initialize Firestore
+const db = getFirestore(app);
+const orgDocId = "InterithmT3";
 
-
+// Add a new document in collection "cities"
+await setDoc(collection(doc(db, "organizations", orgDocId), "cart")), {
+  name: "Los Angeles",
+  state: "CA",
+  country: "USA"
+};
 
 
-        // Redirect to cart.html
-        window.location.href = `products.html`;
-    }
-
-    // Loop through each button and add event listener
-    buyButtons.forEach(function (button) {
-        button.addEventListener('click', handleClick);
-    });
-});
-
-
-// function for change th pictures 
+// const itemsRefff = collection(doc(db, "organizations", orgDocId), "items");
