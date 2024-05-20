@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
 import { getFirestore, setDoc, doc, getDoc, collection, query, where, getDocs, orderBy } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
-
+import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-storage.js";
 const firebaseConfig = {
   apiKey: "AIzaSyDLa_nr_0c0kudQSzcGV5hkwq3WH2bRGgo",
   authDomain: "freidea-pos.firebaseapp.com",
@@ -16,6 +16,20 @@ const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase FireStore
 const db = getFirestore(app);
+const storage = getStorage();
+
+
+// Function to retrieve image download URL from Firebase Storage
+async function getImageDownloadURL(imagePath) {
+  try {
+    const imageRef = ref(storage, imagePath);
+    const imageUrl = await getDownloadURL(imageRef);
+    return imageUrl;
+  } catch (error) {
+    console.error("Error getting image download URL:", error);
+    throw error;
+  }
+}
 
 
 
@@ -153,18 +167,20 @@ snapshots.forEach((productsStockSnapshot, index) => {
 console.log("Aggregated Data:", aggregatedData);
 
 // Access and manipulate the aggregated data
-aggregatedData.forEach((data) => {
+aggregatedData.forEach(async(data) => {
   // Example: Log each item's name and stock quantity
   console.log(`Item: ${data.Item_ID}`);
   console.log(`Name: ${data.Item_Name}`);
   console.log(`Stock Quantity: ${data.productStock.Available_Qty}`);
   console.log('-----------------------');
-  
+  console.log("freidea-pos-img/InterithmT3/Images/Products/Product_"+`${data.Item_ID}`+".png");
+  const imageUrl = await getImageDownloadURL(`gs://freidea-pos-img/My-New-ORG1/Images/Products/Product_`+`${data.Item_ID}`+`.jpg`);
+ 
   const itemHtml = `
   <div class="showcase">
     <div class="showcase-banner">
-      <img src="${data.Image_Location}" alt="${data.Product_Name}" class="product-img default" width="300">
-      <img src="${data.Image_Location2}" alt="${data.Product_Name}" class="product-img hover" width="300">
+      <img src="${imageUrl}" class="product-img default" width="300">
+      <img src="${imageUrl}" alt="${data.Product_Name}" class="product-img hover" width="300">
       <div class="showcase-actions">
         <button class="btn-action"><ion-icon name="heart-outline"></ion-icon></button>
         <button class="btn-action"><ion-icon name="eye-outline"></ion-icon></button>
@@ -205,7 +221,7 @@ aggregatedData.forEach((data) => {
     </div>
   </div>`;
 
-itemsListDivmen.insertAdjacentHTML('beforeend', itemHtml);
+  itemsListDivmen.insertAdjacentHTML('beforeend', itemHtml);
 });
 
 
@@ -286,7 +302,7 @@ aggregatedDataa.forEach((data) => {
   console.log(`Name: ${data.Item_Name}`);
   console.log(`Stock Quantity: ${data.productStock.Available_Qty}`);
   console.log('-----------------------');
-  
+
   const itemHtml = `
   <div class="showcase">
     <div class="showcase-banner">
@@ -332,7 +348,7 @@ aggregatedDataa.forEach((data) => {
     </div>
   </div>`;
 
-itemsListDivwomen.insertAdjacentHTML('beforeend', itemHtml);
+  itemsListDivwomen.insertAdjacentHTML('beforeend', itemHtml);
 });
 
 
@@ -406,7 +422,7 @@ aggregatedDataaa.forEach((data) => {
   console.log(`Name: ${data.Item_Name}`);
   console.log(`Stock Quantity: ${data.productStock.Available_Qty}`);
   console.log('-----------------------');
-  
+
   const itemHtml = `
   <div class="showcase">
     <div class="showcase-banner">
