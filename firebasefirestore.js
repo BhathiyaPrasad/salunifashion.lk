@@ -174,7 +174,7 @@ aggregatedData.forEach(async(data) => {
   console.log(`Stock Quantity: ${data.productStock.Available_Qty}`);
   console.log('-----------------------');
   console.log("freidea-pos-img/InterithmT3/Images/Products/Product_"+`${data.Item_ID}`+".png");
-  const imageUrl = await getImageDownloadURL(`gs://freidea-pos-img/My-New-ORG1/Images/Products/Product_`+`${data.Item_ID}`+`.png`);
+  const imageUrl = await getImageDownloadURL(`gs://freidea-pos-img/My-New-ORG1/Images/Products/Product_`+`${data.Item_ID}`+`.jpg`);
  
   const itemHtml = `
   <div class="showcase">
