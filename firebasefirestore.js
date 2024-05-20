@@ -174,7 +174,7 @@ aggregatedData.forEach(async(data) => {
   console.log(`Stock Quantity: ${data.productStock.Available_Qty}`);
   console.log('-----------------------');
   console.log("freidea-pos-img/InterithmT3/Images/Products/Product_"+`${data.Item_ID}`+".png");
-  const imageUrl = await getImageDownloadURL(`gs://freidea-pos-img/My-New-ORG1/Images/Products/Product_`+`${data.Item_ID}`+`.jpg`);
+  const imageUrl = await getImageDownloadURL(`gs://freidea-pos-img/My-New-ORG1/Images/Products/Product_`+`${data.Item_ID}`+`.png`);
  
   const itemHtml = `
   <div class="showcase">
@@ -208,12 +208,12 @@ aggregatedData.forEach(async(data) => {
         <button class="buybutton"  
           data-product-id="${data.productStock.Available_Qty}" 
           data-product-name="${data.Item_Name}" 
-          data-product-image="${data.Image_Location}" 
+          data-product-image="${imageUrl}" 
           data-product-price="${data.Sales_Price}" 
           data-product-old-price="${data.Sales_Price}" 
-          data-product-imagetwo="${data.Image_Location2}"
-          data-product-imageThree="${data.Image_Location3}"
-          data-product-imageFour="${data.Image_Location4}">
+          data-product-imagetwo="${imageUrl}"
+          data-product-imageThree="${imageUrl}"
+          data-product-imageFour="${imageUrl}">
           Add To Cart
         </button>
       </h5>
@@ -296,18 +296,19 @@ snapshotss.forEach((productsStockSnapshott, index) => {
 console.log("Aggregated Data:", aggregatedDataa);
 
 // Access and manipulate the aggregated data
-aggregatedDataa.forEach((data) => {
+aggregatedDataa.forEach(async(data) => {
   // Example: Log each item's name and stock quantity
   console.log(`Item: ${data.Item_ID}`);
   console.log(`Name: ${data.Item_Name}`);
   console.log(`Stock Quantity: ${data.productStock.Available_Qty}`);
   console.log('-----------------------');
-
+  console.log("freidea-pos-img/InterithmT3/Images/Products/Product_"+`${data.Item_ID}`+".png");
+  const imageUrl = await getImageDownloadURL(`gs://freidea-pos-img/My-New-ORG1/Images/Products/Product_`+`${data.Item_ID}`+`.png`);
   const itemHtml = `
   <div class="showcase">
     <div class="showcase-banner">
-      <img src="${data.Image_Location}" alt="${data.Product_Name}" class="product-img default" width="300">
-      <img src="${data.Image_Location2}" alt="${data.Product_Name}" class="product-img hover" width="300">
+      <img src="${imageUrl}" alt="${data.Product_Name}" class="product-img default" width="300">
+      <img src="${imageUrl}" alt="${data.Product_Name}" class="product-img hover" width="300">
       <div class="showcase-actions">
         <button class="btn-action"><ion-icon name="heart-outline"></ion-icon></button>
         <button class="btn-action"><ion-icon name="eye-outline"></ion-icon></button>
@@ -335,12 +336,12 @@ aggregatedDataa.forEach((data) => {
         <button class="buybutton"  
           data-product-id="${data.productStock.Available_Qty}" 
           data-product-name="${data.Item_Name}" 
-          data-product-image="${data.Image_Location}" 
+          data-product-image="${imageUrl}" 
           data-product-price="${data.Sales_Price}" 
           data-product-old-price="${data.Sales_Price}" 
-          data-product-imagetwo="${data.Image_Location2}"
-          data-product-imageThree="${data.Image_Location3}"
-          data-product-imageFour="${data.Image_Location4}">
+          data-product-imagetwo="${imageUrl}"
+          data-product-imageThree="${imageUrl}"
+          data-product-imageFour="${imageUrl}">
           Add To Cart
         </button>
       </h5>
@@ -416,18 +417,19 @@ snapshotssss.forEach((productsStockSnapshott, index) => {
 console.log("Aggregated Data:", aggregatedDataaa);
 
 // Access and manipulate the aggregated data
-aggregatedDataaa.forEach((data) => {
+aggregatedDataaa.forEach(async(data) => {
   // Example: Log each item's name and stock quantity
   console.log(`Item: ${data.Item_ID}`);
   console.log(`Name: ${data.Item_Name}`);
   console.log(`Stock Quantity: ${data.productStock.Available_Qty}`);
   console.log('-----------------------');
-
+  console.log("freidea-pos-img/InterithmT3/Images/Products/Product_"+`${data.Item_ID}`+".png");
+  const imageUrl = await getImageDownloadURL(`gs://freidea-pos-img/My-New-ORG1/Images/Products/Product_`+`${data.Item_ID}`+`.png`);
   const itemHtml = `
   <div class="showcase">
     <div class="showcase-banner">
-      <img src="${data.Image_Location}" alt="${data.Product_Name}" class="product-img default" width="300">
-      <img src="${data.Image_Location2}" alt="${data.Product_Name}" class="product-img hover" width="300">
+      <img src="${imageUrl}" alt="${data.Product_Name}" class="product-img default" width="300">
+      <img src="${imageUrl}" alt="${data.Product_Name}" class="product-img hover" width="300">
       <div class="showcase-actions">
         <button class="btn-action"><ion-icon name="heart-outline"></ion-icon></button>
         <button class="btn-action"><ion-icon name="eye-outline"></ion-icon></button>
@@ -455,12 +457,12 @@ aggregatedDataaa.forEach((data) => {
         <button class="buybutton"  
           data-product-id="${data.productStock.Available_Qty}" 
           data-product-name="${data.Item_Name}" 
-          data-product-image="${data.Image_Location}" 
+          data-product-image="${imageUrl}" 
           data-product-price="${data.Sales_Price}" 
           data-product-old-price="${data.Sales_Price}" 
-          data-product-imagetwo="${data.Image_Location2}"
-          data-product-imageThree="${data.Image_Location3}"
-          data-product-imageFour="${data.Image_Location4}">
+          data-product-imagetwo="${imageUrl}"
+          data-product-imageThree="${imageUrl}"
+          data-product-imageFour="${imageUrl}">
           Add To Cart
         </button>
       </h5>
