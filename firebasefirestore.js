@@ -214,7 +214,7 @@ aggregatedData.forEach(async(data) => {
           data-product-imagetwo="${imageUrl}"
           data-product-imageThree="${imageUrl}"
           data-product-imageFour="${imageUrl}">
-          Add To Cart
+          View Details
         </button>
       </h5>
       <br>
@@ -342,7 +342,7 @@ aggregatedDataa.forEach(async(data) => {
           data-product-imagetwo="${imageUrl}"
           data-product-imageThree="${imageUrl}"
           data-product-imageFour="${imageUrl}">
-          Add To Cart
+          View Details
         </button>
       </h5>
       <br>
@@ -454,7 +454,12 @@ aggregatedDataaa.forEach(async(data) => {
       </div>
       <br>
       <h5>
-        <button class="buybutton"  
+        <button class="buybutton"  style="color: rgb(255, 255, 255);
+        border: #4214ae;
+        background-color: hsl(353, 100%, 78%);
+        border-color: white;
+        padding: 10px 10px;
+        font-size: small;"
           data-product-id="${data.productStock.Available_Qty}" 
           data-product-name="${data.Item_Name}" 
           data-product-image="${imageUrl}" 
@@ -463,7 +468,7 @@ aggregatedDataaa.forEach(async(data) => {
           data-product-imagetwo="${imageUrl}"
           data-product-imageThree="${imageUrl}"
           data-product-imageFour="${imageUrl}">
-          Add To Cart
+          View Details
         </button>
       </h5>
       <br>
