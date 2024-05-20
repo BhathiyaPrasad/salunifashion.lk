@@ -8,6 +8,7 @@
       rel="stylesheet"
       href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     />
+
     <style>
       body {
         margin-top: 20px;
@@ -220,34 +221,44 @@
           height: 80px;
         }
       }
+      .buybutton {
+        color: rgb(255, 255, 255);
+        border: #4214ae;
+        background-color: hsl(353, 100%, 78%);
+        border-color: white;
+        padding: 10px 10px;
+        font-size: small;
+        
+      }
+      .buybutton:hover {
+        color: hsl(353, 100%, 78%);
+        background-color: white;
+        border-color: hsl(353, 100%, 78%);
+      }
     </style>
   </head>
   <body>
     <div id="output"></div>
     <script>
-      
-        function getUrlParams() {
-            const params = new URLSearchParams(window.location.search);
-            return {
-                id: params.get('id'),
-                name: params.get('name'),
-                image: params.get('image'),
-                image2: params.get('imageTwo'),
-                image3: params.get('imageThree'),
-                image4: params.get('imageFour'),
-                price: params.get('price'),
-                oldPrice: params.get('oldPrice')
-                
-            };
-          };
+      function getUrlParams() {
+        const params = new URLSearchParams(window.location.search);
+        return {
+          id: params.get("id"),
+          name: params.get("name"),
+          image: params.get("image"),
+          image2: params.get("imageTwo"),
+          image3: params.get("imageThree"),
+          image4: params.get("imageFour"),
+          price: params.get("price"),
+          oldPrice: params.get("oldPrice"),
+        };
+      }
 
-        
+      // Retrieve parameters
+      const product = getUrlParams();
 
-        // Retrieve parameters
-        const product = getUrlParams();
-
-        const outputDiv = document.getElementById("output");
-        const productHtml = ` 
+      const outputDiv = document.getElementById("output");
+      const productHtml = ` 
          <div class="container bootdey">
         <div class="col-md-12">
         <section class="panel">
@@ -287,24 +298,30 @@
                           <span class="tagged_as"><strong>Tags:</strong> <a rel="tag" href="#">mens</a>, <a rel="tag" href="#">womens</a>.</span>
                           <br>
                           <div class="sizesection">
-                            <select>
+                            <select id = "size">
                             <option>XL</option>
                             <option>XXL</option>
-                            <option>S</option>
                             <option>L</option>
+                            <option>S</option>
+                            <option></option>
+                            
                             </select>
                       </div>
                       <br>
                       <div class="m-bot15"> <strong>Price : </strong> <span class="amount-old">  </span>  <span class="pro-price"> ${product.price}</span></div>
                       <div class="form-group">
-                          <label>Quantity : ${product.id}</label>
-                          <input type="quantiy" placeholder="1" class="form-control quantity">
+                          <label >Quantity : ${product.id}</label>
+                          <input type="quantiy" placeholder="1" class="form-control quantity" id = "quantity">
                       </div>
                       <p>
                           <button class="buybutton" type="button" id ="addtocart"  data-product-id="${product.id}" 
           data-product-name="${product.name}" 
           data-product-image="${product.image}" 
           data-product-price="${product.price}" 
+          data-quantity=""
+          data-size="" 
+
+
            ><i class="fa fa-shopping-cart"></i>Add to Cart</button>
                       </p>
                   </div>
@@ -312,78 +329,80 @@
           </section>
           </div>
           </div>
-    `; 
-    outputDiv.innerHTML = productHtml ;
+    `;
+      outputDiv.innerHTML = productHtml;
+      const size = document.getElementById("size").value;
+      const quantity = document.getElementById("quantity").value;
+      const addtocartbutton = document.getElementById("addtocart");
+      addtocartbutton.addEventListener("click", function () {
+        addCity();
+
+        window.location.href = "./Payments.html";
+      });
+
+      const main = document.getElementById("main");
+
+      main.addEventListener("click", function () {
+        console.log("main Clicked");
+      });
+
+      const sub01 = document.getElementById("sub01");
+
+      sub01.addEventListener("click", function () {
+        console.log("sub01 Clicked");
+        main.src = sub01.src;
+      });
+
+      const sub02 = document.getElementById("sub02");
+
+      sub02.addEventListener("click", function () {
+        console.log("sub02 Clicked");
+        main.src = sub02.src;
+      });
+
+      const sub03 = document.getElementById("sub03");
+
+      sub03.addEventListener("click", function () {
+        console.log("sub03 Clicked");
+        main.src = sub03.src;
+      });
+
+      const buyButtons = document.querySelectorAll(".buybutton");
+      buyButtons.forEach((button) => {
+        button.addEventListener("click", (event) => {
+          const productId = event.target.getAttribute("data-product-id");
+          const productName = event.target.getAttribute("data-product-name");
+          const productImage = event.target.getAttribute("data-product-image");
+          const productPrice = event.target.getAttribute("data-product-price");
+          const productOldPrice = event.target.getAttribute("data-product-old-price");
+          const productImageTwo = event.target.getAttribute( "data-product-imagetwo");
+          const productImageThree = event.target.getAttribute("data-product-imageThree"); 
+          const productImageFour = event.target.getAttribute("data-product-imageFour");
+          const quantiy = document.getElementById("quantity").value;
+          const size = document.getElementById("size").value;
+          
+          
+            
         
-        const addtocartbutton = document.getElementById("addtocart");
-        addtocartbutton.addEventListener("click", function () {
-         addCity();
-         
+          
 
+          // Create a URL with query parameters
+          const url = new URL("Payments.html", window.location.origin);
+          url.searchParams.append("id", productId);
+          url.searchParams.append("name", productName);
+          url.searchParams.append("image", productImage);
+          url.searchParams.append("price", productPrice);
+          url.searchParams.append("oldPrice", productOldPrice);
+          url.searchParams.append("imageTwo", productImageTwo);
+          url.searchParams.append("imageThree", productImageThree);
+          url.searchParams.append("imageFour", productImageFour);
+          url.searchParams.append("quantity", quantiy);
+          url.searchParams.append("size", size);
 
-
-          window.location.href = "./Payments.html";
+          // Navigate to the new URL
+          window.location.href = url.toString();
         });
-
-        const main = document.getElementById("main");
-
-        main.addEventListener("click", function () {
-          console.log("main Clicked");
-        });
-
-        const sub01 = document.getElementById("sub01");
-
-        sub01.addEventListener("click", function () {
-          console.log("sub01 Clicked");
-          main.src = sub01.src;
-        });
-
-        const sub02 = document.getElementById("sub02");
-
-        sub02.addEventListener("click", function () {
-          console.log("sub02 Clicked");
-          main.src = sub02.src;
-        });
-
-        const sub03 = document.getElementById("sub03");
-
-        sub03.addEventListener("click", function () {
-          console.log("sub03 Clicked");
-          main.src = sub03.src;
-        });
-
-
-        const buyButtons = document.querySelectorAll('.buybutton');
-buyButtons.forEach(button => {
-  button.addEventListener('click', (event) => {
-    const productId = event.target.getAttribute('data-product-id');
-    const productName = event.target.getAttribute('data-product-name');
-    const productImage = event.target.getAttribute('data-product-image');
-    const productPrice = event.target.getAttribute('data-product-price');
-    const productOldPrice = event.target.getAttribute('data-product-old-price');
-    const productImageTwo = event.target.getAttribute('data-product-imagetwo');
-    const productImageThree = event.target.getAttribute('data-product-imageThree');
-    const productImageFour = event.target.getAttribute('data-product-imageFour');
-
-    // Create a URL with query parameters
-    const url = new URL('Payments.html', window.location.origin);
-    url.searchParams.append('id', productId);
-    url.searchParams.append('name', productName);
-    url.searchParams.append('image', productImage);
-    url.searchParams.append('price', productPrice);
-    url.searchParams.append('oldPrice', productOldPrice);
-    url.searchParams.append('imageTwo', productImageTwo);
-    url.searchParams.append('imageThree', productImageThree);
-    url.searchParams.append('imageFour', productImageFour);
-
-    // Navigate to the new URL
-    window.location.href = url.toString();
-  });
-});
-
-
-
-
+      });
     </script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="module" src="./products.js"></script>
