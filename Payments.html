@@ -23,7 +23,30 @@
     />
   </head>
   <body>
-    <div class="container mt-5 p-3 rounded cart">
+    <div class="container mt-5 p-3 rounded cart"></div>
+    
+ 
+    <script>
+      function getUrlParams() { 
+        const params = new URLSearchParams(window.location.search);
+        return {
+          id: params.get("id"),
+          name: params.get("name"),
+          image: params.get("image"),
+          image2: params.get("imageTwo"),
+          image3: params.get("imageThree"),
+          image4: params.get("imageFour"),
+          price: params.get("price"),
+          oldPrice: params.get("oldPrice"),
+        };
+      }
+
+      // Retrieve parameters
+      const product = getUrlParams();
+
+      const outputDiv = document.getElementById("output");
+      const productHtml = `
+    
       <div class="row no-gutters">
         <div class="col-md-8">
           <div class="product-details mr-2">
@@ -223,7 +246,13 @@
           </div>
         </div>
       </div>
-    </div>
-    <script src="payments.js"></script>
-  </body>
+    
+  `;
+
+
+</script>
+  
+  <script src="payments.js"></script>
+
+</body>
 </html>
