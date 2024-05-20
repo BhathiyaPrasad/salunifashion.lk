@@ -20,19 +20,14 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const orgDocId = "InterithmT3";
 
-// Function to add a new document in collection "cart"
-async function addCity() {
-    try {
-        await setDoc(doc(collection(doc(db, "organizations", orgDocId), "cart")), {
-            name: "Los Angeles",
-            state: "CA",
-            country: "USA"
-        });
-        console.log("Document successfully written!");
-    } catch (e) {
-        console.error("Error writing document: ", e);
-    }
-}
+///extract the data from url parameters
 
-// Export the Firestore instance and addCity function
-export { db, addCity };
+const urlParams = new URLSearchParams(window.location.search);
+const productId = urlParams.get('id');
+const productName = urlParams.get('name');
+const productImage = urlParams.get('image');
+const productPrice = urlParams.get('price');
+const productOldPrice = urlParams.get('oldPrice');
+const productImageTwo = urlParams.get('imageTwo');
+const productImageThree = urlParams.get('imageThree');
+const productImageFour = urlParams.get('imageFour');
