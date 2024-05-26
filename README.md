@@ -1,6 +1,6 @@
 # E commerce Web-Store
 
-This is a simple Fashion Shop website built with HTML.
+This is a simple Fashion E-Commerce website built with HTML.
 
 ## Table of Contents
 - Slider Front images
