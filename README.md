@@ -1,4 +1,4 @@
-# E commerce store
+# E commerce web-store
 
 This is a simple Fashion Shop website built with HTML.
 
