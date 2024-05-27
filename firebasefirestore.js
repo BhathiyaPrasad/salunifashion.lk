@@ -98,7 +98,7 @@ async function getImageDownloadURL(imagePath) {
 
 // Organization document ID
 
-const orgDocId = "InterithmT3";  // organzation name
+const orgDocId = "InterithmT4";  // organzation name
 const itemsListDivmen = document.getElementById("men");
 const itemsListDivwomen = document.getElementById("women");
 const itemsListDivunisex = document.getElementById("unisex");
@@ -109,7 +109,7 @@ const itemsRef = collection(doc(db, "organizations", orgDocId), "items");
 // Query to find documents in the 'items' collection where 'item_id' is not empty
 const itemsQuery = query(
   itemsRef,
-  where("Gender", "==", "male"),
+  where("Manufacturer", "==", "male"),
   orderBy("Cat_Name")
 );
 
@@ -173,8 +173,8 @@ aggregatedData.forEach(async(data) => {
   console.log(`Name: ${data.Item_Name}`);
   console.log(`Stock Quantity: ${data.productStock.Available_Qty}`);
   console.log('-----------------------');
-  console.log("freidea-pos-img/InterithmT3/Images/Products/Product_"+`${data.Item_ID}`+".png");
-  const imageUrl = await getImageDownloadURL(`gs://freidea-pos-img/My-New-ORG1/Images/Products/Product_`+`${data.Item_ID}`+`.jpg`);
+  console.log("freidea-pos-img/InterithmT3/Images/Products/Product_"+`${data.Item_ID_Auto}`+".png");
+  const imageUrl = await getImageDownloadURL(`gs://freidea-pos-img/InterithmT4/Images/Products/Product_`+`${data.Item_ID_Auto}`+`.png`);
  
   const itemHtml = `
   <div class="showcase">
@@ -238,7 +238,7 @@ const itemsReff = collection(doc(db, "organizations", orgDocId), "items");
 // Query to find documents in the 'items' collection where 'item_id' is not empty
 const itemsQueryy = query(
   itemsReff,
-  where("Gender", "==", "female"),
+  where("Manufacturer", "==", "female"),
   orderBy("Cat_Name")
 );
 
@@ -302,8 +302,8 @@ aggregatedDataa.forEach(async(data) => {
   console.log(`Name: ${data.Item_Name}`);
   console.log(`Stock Quantity: ${data.productStock.Available_Qty}`);
   console.log('-----------------------');
-  console.log("freidea-pos-img/InterithmT3/Images/Products/Product_"+`${data.Item_ID}`+".png");
-  const imageUrl = await getImageDownloadURL(`gs://freidea-pos-img/My-New-ORG1/Images/Products/Product_`+`${data.Item_ID}`+`.png`);
+  console.log("freidea-pos-img/InterithmT3/Images/Products/Product_"+`${data.Item_ID_Auto}`+".png");
+  const imageUrl = await getImageDownloadURL(`gs://freidea-pos-img/InterithmT4/Images/Products/Product_`+`${data.Item_ID_Auto}`+`.png`);
   const itemHtml = `
   <div class="showcase">
     <div class="showcase-banner">
@@ -359,7 +359,7 @@ const itemsRefff = collection(doc(db, "organizations", orgDocId), "items");
 // Query to find documents in the 'items' collection where 'item_id' is not empty
 const itemsQueryyy = query(
   itemsRefff,
-  where("Gender", "==", "unisex"),
+  where("Manufacturer", "==", "Accessories"),
   orderBy("Cat_Name")
 );
 
@@ -423,8 +423,8 @@ aggregatedDataaa.forEach(async(data) => {
   console.log(`Name: ${data.Item_Name}`);
   console.log(`Stock Quantity: ${data.productStock.Available_Qty}`);
   console.log('-----------------------');
-  console.log("freidea-pos-img/InterithmT3/Images/Products/Product_"+`${data.Item_ID}`+".png");
-  const imageUrl = await getImageDownloadURL(`gs://freidea-pos-img/My-New-ORG1/Images/Products/Product_`+`${data.Item_ID}`+`.png`);
+  console.log("freidea-pos-img/InterithmT3/Images/Products/Product_"+`${data.Item_ID_Auto}`+".png");
+  const imageUrl = await getImageDownloadURL(`gs://freidea-pos-img/InterithmT4/Images/Products/Product_`+`${data.Item_ID_Auto}`+`.png`);
   const itemHtml = `
   <div class="showcase">
     <div class="showcase-banner">
