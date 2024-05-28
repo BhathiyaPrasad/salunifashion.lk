@@ -177,7 +177,7 @@ aggregatedData.forEach(async(data) => {
   const imageUrl = await getImageDownloadURL(`gs://freidea-pos-img/InterithmT4/Images/Products/Product_`+`${data.Item_ID_Auto}`+`.png`);
  
   const itemHtml = `
-  <div class="showcase">
+  <div class="showcase" id="#${data.category}">
     <div class="showcase-banner">
       <img src="${imageUrl}" class="product-img default" width="300">
       <img src="${imageUrl}" alt="${data.Product_Name}" class="product-img hover" width="300">
@@ -305,7 +305,7 @@ aggregatedDataa.forEach(async(data) => {
   console.log("freidea-pos-img/InterithmT3/Images/Products/Product_"+`${data.Item_ID_Auto}`+".png");
   const imageUrl = await getImageDownloadURL(`gs://freidea-pos-img/InterithmT4/Images/Products/Product_`+`${data.Item_ID_Auto}`+`.png`);
   const itemHtml = `
-  <div class="showcase">
+  <div class="showcase" id="#${data.category}">
     <div class="showcase-banner">
       <img src="${imageUrl}" alt="${data.Product_Name}" class="product-img default" width="300">
       <img src="${imageUrl}" alt="${data.Product_Name}" class="product-img hover" width="300">
@@ -426,7 +426,7 @@ aggregatedDataaa.forEach(async(data) => {
   console.log("freidea-pos-img/InterithmT3/Images/Products/Product_"+`${data.Item_ID_Auto}`+".png");
   const imageUrl = await getImageDownloadURL(`gs://freidea-pos-img/InterithmT4/Images/Products/Product_`+`${data.Item_ID_Auto}`+`.png`);
   const itemHtml = `
-  <div class="showcase">
+  <div class="showcase" id="#${data.category}">
     <div class="showcase-banner">
       <img src="${imageUrl}" alt="${data.Product_Name}" class="product-img default" width="300">
       <img src="${imageUrl}" alt="${data.Product_Name}" class="product-img hover" width="300">
