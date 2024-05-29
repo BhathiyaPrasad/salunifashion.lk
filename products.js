@@ -31,3 +31,5 @@ const productOldPrice = urlParams.get('oldPrice');
 const productImageTwo = urlParams.get('imageTwo');
 const productImageThree = urlParams.get('imageThree');
 const productImageFour = urlParams.get('imageFour');
+const productSize = urlParams.get('size');
+const productQty = urlParams.get('quantity');
