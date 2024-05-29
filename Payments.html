@@ -31,6 +31,8 @@
           </div>
           <div id="product-container"></div>
           <br>
+          <div class="Total">Total Quantity: 0 | Total Price: $0.00</div>
+          <br>
           <div class="payment-type">
             <h6>Select Payment Method</h6>
             <form id="payment-method-form">
@@ -85,8 +87,13 @@
       const products = getFromLocalStorage();
       const productContainer = document.getElementById("product-container");
       const itemCount = document.getElementById("item-count");
+      let totalQuantity = 0;
+      let totalPrice = 0;
       itemCount.textContent = `You have ${products.length} items in your cart`;
-      productContainer.innerHTML = products.map(product => `
+      productContainer.innerHTML = products.map(product => {
+        totalQuantity += parseInt(product.qty);
+        totalPrice += parseFloat(product.price);
+        return `
         <div class="d-flex justify-content-between align-items-center mt-3 p-2 items rounded" id="product-${product.id}">
           <div class="d-flex flex-row">
             <img class="rounded" src="${product.image}" width="40" />
@@ -99,7 +106,9 @@
             <i class="fa fa-trash-o ml-4 text-black-50" onclick="removeFromLocalStorage('${product.id}')"></i>
           </div>
         </div>
-      `).join('');
+      `;
+      }).join('');
+      document.querySelector('.Total').textContent = `Total Quantity: ${totalQuantity} | Total Price: $${totalPrice.toFixed(2)}`;
     }
 
     // Check if product exists in local storage
