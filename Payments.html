@@ -92,7 +92,7 @@
       itemCount.textContent = `You have ${products.length} items in your cart`;
       productContainer.innerHTML = products.map(product => {
         totalQuantity += parseInt(product.qty);
-        totalPrice += parseFloat(product.price);
+        totalPrice += parseFloat(product.price) * parseInt(product.qty) ;
         return `
         <div class="d-flex justify-content-between align-items-center mt-3 p-2 items rounded" id="product-${product.id}">
           <div class="d-flex flex-row">
