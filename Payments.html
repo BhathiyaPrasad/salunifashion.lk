@@ -102,13 +102,13 @@
             </div>
           </div>
           <div class="d-flex flex-row align-items-center">
-            <span class="d-block">${product.qty}</span><span class="d-block ml-5 font-weight-bold">${product.price}</span>
+            <span class="d-block">${product.qty}</span><span class="d-block ml-5 font-weight-bold">Rs. ${product.price}.00</span>
             <i class="fa fa-trash-o ml-4 text-black-50" onclick="removeFromLocalStorage('${product.id}')"></i>
           </div>
         </div>
       `;
       }).join('');
-      document.querySelector('.Total').textContent = `Total Quantity: ${totalQuantity} | Total Price: $${totalPrice.toFixed(2)}`;
+      document.querySelector('.Total').textContent = `Total Quantity: ${totalQuantity} | Total Price: Rs. ${totalPrice.toFixed(2)}`;
     }
 
     // Check if product exists in local storage
