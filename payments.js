@@ -26,6 +26,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 const navigationarrow = document.getElementById('navigationarrow');
 navigationarrow.addEventListener('click', function () {
-    window.location.href = './Menu.html'
+    window.location.href = './test/test2.html'
 });
 
