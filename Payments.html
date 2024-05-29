@@ -23,20 +23,26 @@
           <div class="d-flex justify-content-between">
             <span id="item-count"></span>
             <div class="d-flex flex-row align-items-center">
-              
               <span class="mr-1">Quantity</span>
               <div class="price ml-5">
                 <span class="mr-1">Price</span>
-                
               </div>
-
             </div>
           </div>
           <div id="product-container"></div>
-          <div class="payment-type">hshsh</div>
+          <br>
+          <div class="payment-type">
+            <h6>Select Payment Method</h6>
+            <form id="payment-method-form">
+              <label class="radio-inline">
+                <input type="radio" name="paymentMethod" value="cod" checked> Cash on Delivery
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="paymentMethod" value="online"> Online Payment
+              </label>
+            </form>
+          </div>
         </div>
-      </div>
-      
       </div>
     </div>
   </div>
@@ -55,7 +61,6 @@
         oldPrice: params.get("oldPrice"),
         size: params.get("size"),
         qty: params.get("quantity"),
-
       };
     }
 
@@ -63,7 +68,6 @@
       let products = JSON.parse(localStorage.getItem('products')) || [];
       products.push(product);
       localStorage.setItem('products', JSON.stringify(products));
-      
     }
 
     function getFromLocalStorage() {
@@ -75,7 +79,6 @@
       products = products.filter(product => product.id !== productId);
       localStorage.setItem('products', JSON.stringify(products));
       renderProducts();
-      
     }
 
     function renderProducts() {
@@ -98,12 +101,12 @@
         </div>
       `).join('');
     }
-     // product available code
-     function productExists(productId) {
-  const products = getFromLocalStorage();
-  return products.some(product => product.id === productId);
-}
 
+    // Check if product exists in local storage
+    function productExists(productId) {
+      const products = getFromLocalStorage();
+      return products.some(product => product.id === productId);
+    }
 
     // Retrieve parameters and save them to local storage if they exist
     const product = getUrlParams();
