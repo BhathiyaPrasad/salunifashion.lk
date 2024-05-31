@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
-import { getFirestore, setDoc, doc, getDoc, collection, query, where, getDocs, orderBy } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+import { getFirestore, setDoc, doc, getDoc, collection, query, where, getDocs, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-storage.js";
 const firebaseConfig = {
   apiKey: "AIzaSyDLa_nr_0c0kudQSzcGV5hkwq3WH2bRGgo",
@@ -68,7 +68,9 @@ itemQuerySnapshot.forEach((itemDoc) => {
   // Query to find documents in the 'products_stock_management' collection where 'product_id' is equal to the 'item_id' from 'items' collection
   const productsStockQuery = query(
     productsStockRef,
-    where("Product_ID", "==", itemData.Item_ID)
+    where("Product_ID", "==", itemData.Item_ID),
+    orderBy("Product_ID"),limit(1)
+    
   );
 
   // Add the promise of the query to the array
@@ -197,7 +199,8 @@ itemQuerySnapshott.forEach((itemDoc) => {
   // Query to find documents in the 'products_stock_management' collection where 'product_id' is equal to the 'item_id' from 'items' collection
   const productsStockQueryy = query(
     productsStockRef,
-    where("Product_ID", "==", itemData.Item_ID)
+    where("Product_ID", "==", itemData.Item_ID),
+    orderBy("Product_ID"),limit(1)
   );
 
   // Add the promise of the query to the array
@@ -318,7 +321,8 @@ itemQuerySnapshottt.forEach((itemDoc) => {
   // Query to find documents in the 'products_stock_management' collection where 'product_id' is equal to the 'item_id' from 'items' collection
   const productsStockQueryyy = query(
     productsStockReff,
-    where("Product_ID", "==", itemData.Item_ID)
+    where("Product_ID", "==", itemData.Item_ID),
+    orderBy("Product_ID"),limit(1)
   );
 
   // Add the promise of the query to the array
