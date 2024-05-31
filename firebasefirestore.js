@@ -33,69 +33,6 @@ async function getImageDownloadURL(imagePath) {
 
 
 
-// retrieve firebase data
-
-
-
-
-
-//   const docRef = doc(db, "cities", "DC");
-//   const docSnap = await getDoc(docRef);
-
-//   if (docSnap.exists()){
-//     console.log("Document data:", docSnap.data())
-//   }else{
-//     console.log("No Documents ! ")
-//   }
-
-
-
-//   const docRef2 = doc(db, "organization/InterithmT3")
-
-//   const docsnaps = await getDoc(docRef2);
-
-//   if(docsnaps.exists()){s
-//     console.log("document",docsnaps.data());
-//   }else{
-//     console.log("no Documents");
-//   }
-
-
-
-//   const q = query(collection(db, "cities"), where("capital", "==", true));
-
-//   const querySnapshot = await getDocs(q);
-//   querySnapshot.forEach((doc) => {
-//     // doc.data() is never undefined for query doc snapshots
-//     console.log(doc.id, " => ", doc.data());
-//   });
-
-
-//   const b  = query(collection(db, "users"), where("firstName", "==", "Bhathiya"));
-//   const querySnapshots = await getDocs(b);
-//   querySnapshots.forEach((doc) => {
-//     // doc.data() is never undefined for query doc snapshots
-//     console.log(doc.id, " => ", doc.data());
-//   });
-
-
-//   const c = query(collection(db, "salunifashion"));
-//   const querySnapshotss = await getDocs(c);
-//   querySnapshotss.forEach((doc) => {
-//     console.log(doc.id, " => ", doc.data());    
-//   });
-
-
-//   const qq = query(collection(db, "organizations"),("Interithm"), collection("items"), where("Barcode", "==", "577348840"));
-
-//   const querySnapshotsss = await getDocs(qq);
-//   querySnapshotsss.forEach((doc) => {
-//     // doc.data() is never undefined for query doc snapshots
-//     console.log(doc.id, " => ", doc.data());
-//   });
-
-//   import { collection, query, where, getDocs, doc } from "firebase/firestore"; 
-
 // Organization document ID
 
 const orgDocId = "InterithmT4";  // organzation name
