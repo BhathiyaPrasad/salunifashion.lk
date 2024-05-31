@@ -228,7 +228,6 @@
         border-color: white;
         padding: 10px 10px;
         font-size: small;
-        
       }
       .buybutton:hover {
         color: hsl(353, 100%, 78%);
@@ -308,13 +307,20 @@
                             </select>
                       </div>
                       <br>
-                      <div class="m-bot15"> <strong>Price : </strong> <span class="amount-old">  </span>  <span class="pro-price"> ${product.price}</span></div>
+                      <div class="m-bot15"> <strong>Price : </strong> <span class="amount-old">  </span>  <span class="pro-price"> ${
+                        product.price
+                      }</span></div>
                       <div class="form-group">
-                          <label >Quantity : ${product.id  > 0 ? "Stock Available" : "Stock Unavailable"} </label>
+                          <label >${
+                            product.id > 0
+                              ? "Stock Available"
+                              : "Out Of Stock"
+                          } </label>
                           <input type="quantiy" placeholder="1" class="form-control quantity" id = "quantity">
                       </div>
                       <p>
-                          <button class="buybutton" type="button" id ="addtocart"  data-product-id="${product.id}" 
+                          <button class="buybutton" type="button" id ="${product.id > 0 ? "addtocart" : "button"}"  
+          data-product-id="${product.id}" 
           data-product-name="${product.name}" 
           data-product-image="${product.image}" 
           data-product-price="${product.price}" 
@@ -334,11 +340,17 @@
       const size = document.getElementById("size").value;
       const quantity = document.getElementById("quantity").value;
       const addtocartbutton = document.getElementById("addtocart");
+     
       addtocartbutton.addEventListener("click", function () {
         addCity();
-
-        window.location.href = "./Payments.html";
+        window.location.href ="./Payments.html"
       });
+      const button = document.getElementById("button");
+     
+      button.addEventListener("click", function () {
+       alert("Out of Stock");
+      });
+
 
       const main = document.getElementById("main");
 
@@ -374,17 +386,20 @@
           const productName = event.target.getAttribute("data-product-name");
           const productImage = event.target.getAttribute("data-product-image");
           const productPrice = event.target.getAttribute("data-product-price");
-          const productOldPrice = event.target.getAttribute("data-product-old-price");
-          const productImageTwo = event.target.getAttribute( "data-product-imagetwo");
-          const productImageThree = event.target.getAttribute("data-product-imageThree"); 
-          const productImageFour = event.target.getAttribute("data-product-imageFour");
-          const quantiy = document.getElementById("quantity").value;  // calling selected data to the url parameters
+          const productOldPrice = event.target.getAttribute(
+            "data-product-old-price"
+          );
+          const productImageTwo = event.target.getAttribute(
+            "data-product-imagetwo"
+          );
+          const productImageThree = event.target.getAttribute(
+            "data-product-imageThree"
+          );
+          const productImageFour = event.target.getAttribute(
+            "data-product-imageFour"
+          );
+          const quantiy = document.getElementById("quantity").value; // calling selected data to the url parameters
           const size = document.getElementById("size").value;
-          
-          
-            
-        
-          
 
           // Create a URL with query parameters
           const url = new URL("Payments.html", window.location.origin);
