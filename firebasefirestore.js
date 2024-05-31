@@ -40,7 +40,7 @@ async function getImageDownloadURL(imagePath) {
 const orgDocId = "InterithmT4";  // organzation name
 const itemsListDivmen = document.getElementById("men");
 const itemsListDivwomen = document.getElementById("women");
-const itemsListDivunisex = document.getElementById("unisex");
+const itemsListDivAccessories = document.getElementById("Accessories");
 
 // Reference to the 'items' collection
 const itemsRef = collection(doc(db, "organizations", orgDocId), "items");
@@ -348,13 +348,13 @@ snapshotssss.forEach((productsStockSnapshott, index) => {
     const productStockDataa = productStockDocc.data();
 
     // Merge item data with product stock data
-    const mergedData = {
+    const mergedDataa = {
       ...itemData,
       productStock: productStockDataa
     };
 
     // Add the merged data to the array
-    aggregatedDataaa.push(mergedData);
+    aggregatedDataaa.push(mergedDataa);
   });
 });
 
@@ -415,30 +415,8 @@ aggregatedDataaa.forEach(async(data) => {
     </div>
   </div>`;
 
-  itemsListDivunisex.insertAdjacentHTML('beforeend', itemHtml);
+  itemsListDivAccessories.insertAdjacentHTML('beforeend', itemHtml);
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 const buyButtons = document.querySelectorAll('.buybutton');
 buyButtons.forEach(button => {
