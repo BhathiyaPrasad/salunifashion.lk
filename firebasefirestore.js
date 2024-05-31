@@ -399,18 +399,18 @@ aggregatedDataaa.forEach(async(data) => {
       </div>
       <br>
       <h5>
-        <button class="buybutton"  
-          data-product-id="${data.productStock.Available_Qty}" 
-          data-product-name="${data.Item_Name}" 
-          data-product-image="${imageUrl}" 
-          data-product-price="${data.Sales_Price}" 
-          data-product-old-price="${data.Sales_Price}" 
-          data-product-imagetwo="${imageUrl}"
-          data-product-imageThree="${imageUrl}"
-          data-product-imageFour="${imageUrl}">
-          View Details
-        </button>
-      </h5>
+      <button class="buybutton"  
+        data-product-id="${data.productStock.Available_Qty}" 
+        data-product-name="${data.Item_Name}" 
+        data-product-image="${imageUrl}" 
+        data-product-price="${data.Sales_Price}" 
+        data-product-old-price="${data.Sales_Price}" 
+        data-product-imagetwo="${imageUrl}"
+        data-product-imageThree="${imageUrl}"
+        data-product-imageFour="${imageUrl}">
+        View Details
+      </button>
+    </h5>
       <br>
     </div>
   </div>`;
