@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
-import { getFirestore, setDoc, doc, getDoc, collection, query, where, getDocs, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+import { getFirestore, setDoc, doc, getDoc, collection, query, where, getDocs, orderBy , limit } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-storage.js";
 const firebaseConfig = {
   apiKey: "AIzaSyDLa_nr_0c0kudQSzcGV5hkwq3WH2bRGgo",
@@ -30,6 +30,8 @@ async function getImageDownloadURL(imagePath) {
     throw error;
   }
 }
+
+
 
 
 
@@ -69,8 +71,8 @@ itemQuerySnapshot.forEach((itemDoc) => {
   const productsStockQuery = query(
     productsStockRef,
     where("Product_ID", "==", itemData.Item_ID),
-    orderBy("Product_ID"),limit(1)
-    
+    orderBy("Available_Qty", "DESC"),
+    limit(1)
   );
 
   // Add the promise of the query to the array
@@ -200,7 +202,8 @@ itemQuerySnapshott.forEach((itemDoc) => {
   const productsStockQueryy = query(
     productsStockRef,
     where("Product_ID", "==", itemData.Item_ID),
-    orderBy("Product_ID"),limit(1)
+    orderBy("Available_Qty", "DESC"),
+    limit(1)
   );
 
   // Add the promise of the query to the array
@@ -322,7 +325,8 @@ itemQuerySnapshottt.forEach((itemDoc) => {
   const productsStockQueryyy = query(
     productsStockReff,
     where("Product_ID", "==", itemData.Item_ID),
-    orderBy("Product_ID"),limit(1)
+    orderBy("Available_Qty", "DESC"),
+    limit(1)
   );
 
   // Add the promise of the query to the array
