@@ -5,155 +5,187 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Product Details</title>
   <link
-    rel="stylesheet"
-    href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-  />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-  />
-  <style>
-    body {
-      margin-top: 20px;
-      background: #f4f4f9;
-      font-family: "Open Sans", sans-serif;
-    }
+  rel="stylesheet"
+  href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+/>
+<style>
+  body {
+    margin-top: 20px;
+    background: #f4f4f9;
+    font-family: "Open Sans", sans-serif;
+  }
 
-    .panel {
-      border: none;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      background-color: #fff;
-      border-radius: 8px;
-      overflow: hidden;
-    }
+  .panel {
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+  }
 
-    .panel-heading {
-      background-color: #fff;
-      border-bottom: 1px solid #eff2f7;
-      padding: 15px 20px;
-      font-size: 18px;
-      font-weight: 400;
-      color: #333;
-    }
+  .panel-heading {
+    background-color: #fff;
+    border-bottom: 1px solid #eff2f7;
+    padding: 15px 20px;
+    font-size: 18px;
+    font-weight: 400;
+    color: #333;
+  }
 
-    .panel-body {
-      padding: 20px;
-    }
+  .panel-body {
+    padding: 20px;
+  }
 
-    .pro-img-details img {
-      width: 100%;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  .pro-img-details img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .pro-img-list {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+
+  .pro-img-list img {
+    width: 30%;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+    margin-right: 5px; /* Add margin between images */
+  }
+
+  .pro-img-list img:last-child {
+    margin-right: 0; /* Remove margin for the last image */
+  }
+
+  .pro-img-list img:hover {
+    transform: scale(1.05);
+  }
+
+  .pro-title {
+    color: #333;
+    font-size: 24px;
+    font-weight: 600;
+    margin-top: 20px;
+  }
+
+  .product_meta {
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+    margin: 15px 0;
+  }
+
+  .product_meta span {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .product_meta a {
+    color: #ff7261;
+    text-decoration: none;
+  }
+
+  .product_meta a:hover {
+    text-decoration: underline;
+  }
+
+  .pro-price,
+  .amount-old {
+    font-size: 20px;
+    padding: 0 10px;
+    display: inline-block;
+  }
+
+  .amount-old {
+    text-decoration: line-through;
+    color: #999;
+  }
+
+  .pro-price {
+    color: #fc5959;
+    font-weight: bold;
+  }
+
+  .quantity {
+    width: 100%;
+    max-width: 100px;
+  }
+
+  .buybutton {
+    color: #fff;
+    background-color: #fc5959;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+
+  .buybutton:hover {
+    background-color: #e14b4b;
+    color: #fff;
+  }
+
+  @media screen and (max-width: 768px) {
+    .pro-img-list {
+      flex-direction: row;
     }
 
     .pro-img-list img {
       width: 100%;
-      border-radius: 8px;
-      transition: transform 0.3s ease;
-    }
-
-    .pro-img-list img:hover {
-      transform: scale(1.05);
-    }
-
-    .pro-title {
-      color: #333;
-      font-size: 24px;
-      font-weight: 600;
-      margin-top: 20px;
-    }
-
-    .product_meta {
-      border-top: 1px solid #eee;
-      border-bottom: 1px solid #eee;
-      padding: 10px 0;
-      margin: 15px 0;
-    }
-
-    .product_meta span {
-      display: block;
       margin-bottom: 10px;
+      max-width: 90px;
     }
 
-    .product_meta a {
-      color: #ff7261;
-      text-decoration: none;
+    .pro-img-list img:last-child {
+      margin-bottom: 10px;
+      margin-right: 0px;
     }
+  }
 
-    .product_meta a:hover {
-      text-decoration: underline;
+  @media screen and (max-width: 600px) {
+    .pro-title {
+      font-size: 20px;
     }
 
     .pro-price,
     .amount-old {
-      font-size: 20px;
-      padding: 0 10px;
-    }
-
-    .amount-old {
-      text-decoration: line-through;
-      color: #999;
-    }
-
-    .pro-price {
-      color: #fc5959;
-      font-weight: bold;
-    }
-
-    .quantity {
-      width: 100%;
-      max-width: 100px;
+      font-size: 18px;
     }
 
     .buybutton {
-      color: #fff;
-      background-color: #fc5959;
-      border: none;
-      padding: 10px 20px;
+      width: 100%;
+      padding: 15px;
+    }
+
+    /* Adjust sub-images size for mobile */
+    .pro-img-list img {
+      width: 40%;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .pro-title {
+      font-size: 18px;
+    }
+
+    .pro-price,
+    .amount-old {
       font-size: 16px;
-      font-weight: bold;
-      border-radius: 5px;
-      transition: background-color 0.3s ease;
     }
 
-    .buybutton:hover {
-      background-color: #e14b4b;
-      color: #fff;
+    .buybutton {
+      padding: 10px;
     }
-
-    @media screen and (max-width: 600px) {
-      .pro-img-details img {
-        width: 100%;
-      }
-
-      .pro-img-list img {
-        width: 80px;
-        height: 80px;
-      }
-    }
-
-    @media screen and (max-width: 320px) {
-      .pro-img-details img {
-        width: 100%;
-      }
-
-      .pro-img-list img {
-        width: 55px;
-        height: 55px;
-      }
-    }
-
-    @media screen and (max-width: 375px) {
-      .pro-img-details img {
-        width: 100%;
-      }
-
-      .pro-img-list img {
-        width: 75px;
-        height: 75px;
-      }
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
   <div id="output"></div>
@@ -188,17 +220,9 @@
                     <img src="${product.image}" alt="" id="main">
                   </div>
                   <div class="pro-img-list">
-                    <div class="row">
-                      <div class="col-xs-4">
-                        <img src="${product.image2}" alt="" id="sub01">
-                      </div>
-                      <div class="col-xs-4">
-                        <img src="${product.image3}" alt="" id="sub02">
-                      </div>
-                      <div class="col-xs-4">
-                        <img src="${product.image4}" alt="" id="sub03">
-                      </div>
-                    </div>
+                    <img src="${product.image2}" alt="" id="sub01">
+                    <img src="${product.image3}" alt="" id="sub02">
+                    <img src="${product.image4}" alt="" id="sub03">
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -219,12 +243,10 @@
                       <option>S</option>
                     </select>
                   </div>
-                  
                   <div class="form-group">
                     <label for="quantity"><strong>Quantity:</strong></label>
                     <input type="number" id="quantity" class="form-control" value="1" min="1">
                   </div>
-                  
                   <div class="m-bot15">
                     <strong>Price :</strong> <span class="amount-old">Rs.${product.oldPrice}.00</span> <span class="pro-price">Rs.${product.price}.00</span>
                   </div>
