@@ -9,6 +9,40 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <script type="module" src="firebaseauth.js"></script>
+  <style>
+    /* Additional styles for user details */
+    #userDetails {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #e9ecef; /* Lightened background for better contrast */
+  border-radius: 8px; /* Slightly more rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Deeper shadow for a more pronounced effect */
+  font-family: 'Arial', sans-serif; /* Set a consistent font family */
+}
+
+#userDetails p {
+  margin: 10px 0; /* Increased margin for better spacing */
+  padding: 8px 0; /* Increased padding for better readability */
+  font-size: 18px; /* Slightly larger font size */
+  line-height: 1.5; /* Improved line height for readability */
+  border-bottom: 1px solid #dee2e6; /* Adding a border between elements for separation */
+}
+
+#userDetails p:last-child {
+  border-bottom: none; /* Remove border from the last element */
+}
+
+#userDetails p span {
+  font-weight: bold;
+  color: #495057; /* Darker color for labels */
+}
+
+#userDetails p span.value {
+  color: #6c757d; /* Different color for the actual values for better distinction */
+}
+
+  </style>
 </head>
 <body>
   <div class="container mt-5 p-3 rounded cart">
@@ -42,8 +76,9 @@
               <label class="radio-inline">
                 <input type="radio" name="paymentMethod" value="online"> Online Payment
               </label>
-              <Button class="proceed-payment">Confirm Order</Button>
+              <Button type="button" class="proceed-payment" id="order">Confirm Order</Button>
             </form>
+            <div id="userDetails"></div>
           </div>
         </div>
       </div>
@@ -126,6 +161,29 @@
 
     // Render products on page load
     renderProducts();
+    
+   const submitsbutton  = document.getElementById('order');
+   submitsbutton.addEventListener('click', () =>{
+    
+    window.location.href = ('/indexs.html');
+   })
+  </script>
+
+  <script>
+    // Retrieve user data from localStorage
+    const userData = JSON.parse(localStorage.getItem('userData'));
+
+    if (userData) {
+        document.getElementById('userDetails').innerHTML = `
+            <p><span>Name:</span> ${userData.firstName} ${userData.lastName}</p>
+            <p><span>Email:</span> ${userData.email}</p>
+            <p><span>Mobile:</span> ${userData.mobileNumber}</p>
+            <p><span>Address:</span> ${userData.addressOne}, ${userData.addressTwo}</p>
+            <p><span>Postal Code:</span> ${userData.postalCode}</p>
+        `;
+    } else {
+        document.getElementById('userDetails').innerHTML = '<p>No user data available.</p>';
+    }
   </script>
   
   <script src="payments.js"></script>

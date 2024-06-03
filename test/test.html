@@ -4,75 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Forum&display=swap" rel="stylesheet">
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet">
-
-  <!-- 
-    - custom css link
-  -->
-<link rel="stylesheet" href="../CSS/menunavbar.css">
-<link rel="stylesheet" href="../CSS/styles.css">
-<link rehref="https://unpkg.com/boxicons@2.0.8/css/boxicons.min.css"
-rel="stylesheet"/>
-  <script type="module" src="../firebasefirestore.js"></script>
+  <script src="allfunction.js"></script>
 </head>
 <body>
-  <ul class="items" id="items">
-    <li class="category1" id="Men">
-   <h1 class="add-cart-btn" style="text-align: center; font-size: larger; color: black; font-family:'Times New Roman', Times, serif;">Men's Section</h1><br>
-   <div class="product-main" id="products">
-  
-  <div class="product-grid" id="itemlist"> </div>
-</div>
-</li>
-</ul>
-
-
-<script>
-  /* =========== Toggle Menu ============ */
-const openNav = document.querySelector(".open-btn");
-const closeNav = document.querySelector(".close-btn");
-const menu = document.querySelector(".nav-list");
-
-openNav.addEventListener("click", () => {
-  menu.classList.add("show");
-});
-
-closeNav.addEventListener("click", () => {
-  menu.classList.remove("show");
-});
-
-
-const navbaropenmen = document.getElementById("close-men");
-
-navbaropenmen.addEventListener("click", () => {
-  console.log("button Clicked");
-  menu.classList.remove("show");
-})
-const navbaropenwomen = document.getElementById("close-women");
-
-navbaropenwomen.addEventListener("click", () => {
-  console.log("button Clicked");
-  menu.classList.remove("show");
-})
-
-const navbaropenAccessorries = document.getElementById("close-Accessorries");
-
-navbaropenAccessorries.addEventListener("click", () => {
-  console.log("button Clicked");
-  menu.classList.remove("show");
-})
-
-
-</script>
-    - ionicon link
-  -->
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
- 
+  <div id="item-count"></div>
+  <div id="product-container"></div>
 </body>
 </html>
