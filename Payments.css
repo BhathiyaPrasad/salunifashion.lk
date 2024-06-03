@@ -116,3 +116,47 @@
     font-weight: bold;
     text-align: right;
   }
+  .proceed-payment {
+    background: linear-gradient(45deg, hsl(353, 100%, 78%), hsl(353, 80%, 58%));
+    border: none;
+    border-radius: 25px;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    padding: 15px 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    text-transform: uppercase;
+    margin-left: auto; /* Center the button horizontally */
+    display: block;
+    text-align: center;
+  }
+  
+  .proceed-payment:hover {
+    background: linear-gradient(45deg, hsl(353, 80%, 58%), hsl(353, 100%, 78%));
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-3px);
+  }
+  
+  .proceed-payment:active {
+    background: linear-gradient(45deg, hsl(353, 100%, 78%), hsl(353, 80%, 58%));
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(1px);
+  }
+  
+  @media (max-width: 768px) {
+    .proceed-payment {
+      padding: 12px 24px;
+      font-size: 14px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .proceed-payment {
+      padding: 10px 20px;
+      font-size: 12px;
+      width: 90%; /* Ensure the button doesn't take the full width */
+      margin-left: 5%; /* Center the button */
+    }
+  }
+  
