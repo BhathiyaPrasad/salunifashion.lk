@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Product Details</title>
     <link
       rel="stylesheet"
       href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -271,7 +271,7 @@
                               <img src="${product.image2}" alt="" id ="sub01">
                           </a>
                           <a href="#">
-                              <img src="${product.image3}}" alt="" id ="sub02">
+                              <img src="${product.image3}" alt="" id ="sub02">
                           </a>
                           <a href="#">
                               <img src="${product.image4}" alt="" id ="sub03">
@@ -289,44 +289,35 @@
                       <p>
                         Luxury Collection by Saluni Fashion - Hurry Up  <br>
                         Product Colour May Slightly vary Due to Photographic Lightning or your Device Settings
-                        
-
                       </p>
                       <div class="product_meta">
                           <span class="posted_in"> <strong>Categories:</strong> <a rel="tag" href="#">Jackets</a>, <a rel="tag" href="#">Men</a>, <a rel="tag" href="#">Shirts</a>, <a rel="tag" href="#">T-shirt</a>.</span>
                           <span class="tagged_as"><strong>Tags:</strong> <a rel="tag" href="#">mens</a>, <a rel="tag" href="#">womens</a>.</span>
                           <br>
                           <div class="sizesection">
-                            <select id = "size">
-                            <option>XL</option>
-                            <option>XXL</option>
-                            <option>L</option>
-                            <option>S</option>
-                            <option></option>
-                            
+                            <select id="size">
+                              <option>XL</option>
+                              <option>XXL</option>
+                              <option>L</option>
+                              <option>S</option>
                             </select>
                       </div>
                       <br>
-                      <div class="m-bot15"> <strong>Price : </strong> <span class="amount-old">  </span>  <span class="pro-price"> ${
-                        product.price
-                      }</span></div>
+                      <div class="m-bot15"> <strong>Price : </strong> <span class="amount-old">${product.oldPrice}</span>  <span class="pro-price">${product.price}</span></div>
                       <div class="form-group">
-                          <label >${
-                            product.id > 0
-                              ? "Stock Available"
-                              : "Out Of Stock"
-                          } </label>
-                          <input type="quantiy" placeholder="1" class="form-control quantity" id = "quantity">
+                          <label>${product.id > 0 ? "Stock Available" : "Out Of Stock"}</label>
+                          <input type="quantity" placeholder="1" class="form-control quantity" id="quantity">
                       </div>
                       <p>
-                          <button class="buybutton" type="button" id ="${product.id > 0 ? "addtocart" : "button"}"  
+                          <button class="buybutton" type="button" id="${product.id > 0 ? "addtocart" : "button"}"  
           data-product-id="${product.id}" 
           data-product-name="${product.name}" 
           data-product-image="${product.image}" 
           data-product-price="${product.price}" 
-          data-quantity=""
-          data-size="" 
-
+          data-product-old-price="${product.oldPrice}"
+          data-product-imagetwo="${product.image2}"
+          data-product-imagethree="${product.image3}"
+          data-product-imagefour="${product.image4}"
 
            ><i class="fa fa-shopping-cart"></i>Add to Cart</button>
                       </p>
@@ -337,20 +328,6 @@
           </div>
     `;
       outputDiv.innerHTML = productHtml;
-      const size = document.getElementById("size").value;
-      const quantity = document.getElementById("quantity").value;
-      const addtocartbutton = document.getElementById("addtocart");
-     
-      addtocartbutton.addEventListener("click", function () {
-       
-        window.location.href ="./Payments.html"
-      });
-      const button = document.getElementById("button");
-     
-      button.addEventListener("click", function () {
-       alert("Out of Stock");
-      });
-
 
       const main = document.getElementById("main");
 
@@ -379,45 +356,34 @@
         main.src = sub03.src;
       });
 
-      const buyButtons = document.querySelectorAll(".buybutton");
-      buyButtons.forEach((button) => {
-        button.addEventListener("click", (event) => {
-          const productId = event.target.getAttribute("data-product-id");
-          const productName = event.target.getAttribute("data-product-name");
-          const productImage = event.target.getAttribute("data-product-image");
-          const productPrice = event.target.getAttribute("data-product-price");
-          const productOldPrice = event.target.getAttribute(
-            "data-product-old-price"
-          );
-          const productImageTwo = event.target.getAttribute(
-            "data-product-imagetwo"
-          );
-          const productImageThree = event.target.getAttribute(
-            "data-product-imageThree"
-          );
-          const productImageFour = event.target.getAttribute(
-            "data-product-imageFour"
-          );
-          const quantiy = document.getElementById("quantity").value; // calling selected data to the url parameters
+      const addtocartbutton = document.getElementById("addtocart");
+      if (addtocartbutton) {
+        addtocartbutton.addEventListener("click", function () {
+          const quantity = document.getElementById("quantity").value;
           const size = document.getElementById("size").value;
 
-          // Create a URL with query parameters
           const url = new URL("Payments.html", window.location.origin);
-          url.searchParams.append("id", productId);
-          url.searchParams.append("name", productName);
-          url.searchParams.append("image", productImage);
-          url.searchParams.append("price", productPrice);
-          url.searchParams.append("oldPrice", productOldPrice);
-          url.searchParams.append("imageTwo", productImageTwo);
-          url.searchParams.append("imageThree", productImageThree);
-          url.searchParams.append("imageFour", productImageFour);
-          url.searchParams.append("quantity", quantiy);
+          url.searchParams.append("id", product.id);
+          url.searchParams.append("name", product.name);
+          url.searchParams.append("image", product.image);
+          url.searchParams.append("price", product.price);
+          url.searchParams.append("oldPrice", product.oldPrice);
+          url.searchParams.append("imageTwo", product.image2);
+          url.searchParams.append("imageThree", product.image3);
+          url.searchParams.append("imageFour", product.image4);
+          url.searchParams.append("quantity", quantity);
           url.searchParams.append("size", size);
 
-          // Navigate to the new URL
           window.location.href = url.toString();
         });
-      });
+      }
+
+      const button = document.getElementById("button");
+      if (button) {
+        button.addEventListener("click", function () {
+          alert("Out of Stock");
+        });
+      }
     </script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="module" src="./products.js"></script>
