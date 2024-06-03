@@ -1,7 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
-import { getFirestore, collection, query, where, getDocs, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
-import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-storage.js";
-
+// Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDLa_nr_0c0kudQSzcGV5hkwq3WH2bRGgo",
   authDomain: "freidea-pos.firebaseapp.com",
@@ -13,148 +10,112 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const storage = getStorage();
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
-const orgDocId = "InterithmT4";
-const itemsListDivmen = document.getElementById("men");
-const itemsListDivwomen = document.getElementById("women");
-const itemsListDivAccessories = document.getElementById("Accessories");
-
-// Function to retrieve image download URL from Firebase Storage
-async function getImageDownloadURL(imagePath) {
-  try {
-    const imageRef = ref(storage, imagePath);
-    const imageUrl = await getDownloadURL(imageRef);
-    return imageUrl;
-  } catch (error) {
-    console.error("Error getting image download URL:", error);
-    return "default-image-url.png";  // Fallback image URL in case of error
-  }
+function getUrlParams() {
+  const params = new URLSearchParams(window.location.search);
+  return {
+    id: params.get("id"),
+    name: params.get("name"),
+    image: params.get("image"),
+    image2: params.get("imageTwo"),
+    image3: params.get("imageThree"),
+    image4: params.get("imageFour"),
+    price: params.get("price"),
+    oldPrice: params.get("oldPrice"),
+    size: params.get("size"),
+    qty: params.get("quantity"),
+  };
 }
 
-// Function to fetch and display items based on category
-async function fetchAndDisplayItems(manufacturer, containerElement) {
-  const itemsRef = collection(doc(db, "organizations", orgDocId), "items");
-  const itemsQuery = query(
-    itemsRef,
-    where("Manufacturer", "==", manufacturer),
-    orderBy("Cat_Name")
-  );
+function saveToLocalStorage(product) {
+  let products = JSON.parse(localStorage.getItem('products')) || [];
+  products.push(product);
+  localStorage.setItem('products', JSON.stringify(products));
+}
 
-  const itemQuerySnapshot = await getDocs(itemsQuery);
+function getFromLocalStorage() {
+  return JSON.parse(localStorage.getItem('products')) || [];
+}
 
-  const promises = [];
-  const itemsData = [];
+function removeFromLocalStorage(productId) {
+  let products = JSON.parse(localStorage.getItem('products')) || [];
+  products = products.filter(product => product.id !== productId);
+  localStorage.setItem('products', JSON.stringify(products));
+  renderProducts();
+}
 
-  itemQuerySnapshot.forEach((itemDoc) => {
-    const itemData = itemDoc.data();
-    itemsData.push(itemData);
+function renderProducts() {
+  const products = getFromLocalStorage();
+  const productContainer = document.getElementById("product-container");
+  const itemCount = document.getElementById("item-count");
+  let totalQuantity = 0;
+  let totalPrice = 0;
+  itemCount.textContent = `You have ${products.length} items in your cart`;
+  productContainer.innerHTML = products.map(product => {
+    totalQuantity += parseInt(product.qty);
+    totalPrice += parseFloat(product.price) * parseInt(product.qty) ;
+    return `
+    <div class="d-flex justify-content-between align-items-center mt-3 p-2 items rounded" id="product-${product.id}">
+      <div class="d-flex flex-row">
+        <img class="rounded" src="${product.image}" width="40" />
+        <div class="ml-2">
+          <span class="font-weight-bold d-block">${product.name}</span><span class="spec">${product.size}</span>
+        </div>
+      </div>
+      <div class="d-flex flex-row align-items-center">
+        <span class="d-block">${product.qty}</span><span class="d-block ml-5 font-weight-bold">Rs. ${product.price}.00</span>
+        <i class="fa fa-trash-o ml-4 text-black-50" onclick="removeFromLocalStorage('${product.id}')"></i>
+      </div>
+    </div>
+  `;
+  }).join('');
+  document.querySelector('.Total').textContent = `Total Quantity: ${totalQuantity} | Total Price: Rs. ${totalPrice.toFixed(2)}`;
+}
 
-    const productsStockRef = collection(doc(db, "organizations", orgDocId), "products_stock_management");
-    const productsStockQuery = query(
-      productsStockRef,
-      where("Product_ID", "==", itemData.Item_ID),
-      orderBy("Available_Qty", "DESC"),
-      limit(1)
-    );
+function productExists(productId) {
+  const products = getFromLocalStorage();
+  return products.some(product => product.id === productId);
+}
 
-    promises.push(getDocs(productsStockQuery));
+const product = getUrlParams();
+if (product.id && !productExists(product.id)) {
+  saveToLocalStorage(product);
+}
+
+renderProducts();
+
+document.querySelector('.proceed-payment').addEventListener('click', () => {
+  const products = getFromLocalStorage();
+  let totalQuantity = 0;
+  let totalPrice = 0;
+  let orderItems = products.map(product => {
+    totalQuantity += parseInt(product.qty);
+    totalPrice += parseFloat(product.price) * parseInt(product.qty);
+    return {
+      id: product.id,
+      name: product.name,
+      quantity: product.qty,
+      price: product.price
+    };
   });
 
-  const snapshots = await Promise.all(promises);
+  const orderData = {
+    totalQuantity: totalQuantity,
+    totalPrice: totalPrice.toFixed(2),
+    items: orderItems,
+    paymentMethod: document.querySelector('input[name="paymentMethod"]:checked').value,
+    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+  };
 
-  const aggregatedData = [];
-
-  snapshots.forEach((productsStockSnapshot, index) => {
-    const itemData = itemsData[index];
-    productsStockSnapshot.forEach((productStockDoc) => {
-      const productStockData = productStockDoc.data();
-      const mergedData = { ...itemData, productStock: productStockData };
-      aggregatedData.push(mergedData);
+  db.collection('orders').add(orderData)
+    .then(() => {
+      alert('Order placed successfully!');
+      localStorage.removeItem('products');
+      renderProducts();
+    })
+    .catch(error => {
+      console.error('Error adding order: ', error);
     });
-  });
-
-  aggregatedData.forEach(async (data) => {
-    const imageUrl = await getImageDownloadURL(`gs://freidea-pos-img/InterithmT4/Images/Products/Product_${data.Item_ID_Auto}.png`);
-    const itemHtml = `
-      <div class="showcase" id="#${data.category}">
-        <div class="showcase-banner">
-          <img src="${imageUrl}" class="product-img default" width="300">
-          <img src="${imageUrl}" alt="${data.Product_Name}" class="product-img hover" width="300">
-          <div class="showcase-actions">
-            <button class="btn-action"><ion-icon name="heart-outline"></ion-icon></button>
-            <button class="btn-action"><ion-icon name="eye-outline"></ion-icon></button>
-            <button class="btn-action"><ion-icon name="repeat-outline"></ion-icon></button>
-            <button class="btn-action"><ion-icon name="bag-add-outline"></ion-icon></button>
-          </div>
-        </div>
-        <div class="showcase-content">
-          <br>
-          <a href="#" class="showcase-category">${data.Item_Name}</a>
-          <h3><a href="#" class="showcase-title">${data.Item_Name}</a></h3>
-          <div class="showcase-rating">
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star"></ion-icon>
-            <ion-icon name="star"></ion-icon>
-          </div>
-          <div class="price-box">
-            <p class="price">${data.Sales_Price}</p>
-            <del>${data.Sales_Price2}</del>
-          </div>
-          <br>
-          <h5>
-            <button class="buybutton"  
-              data-product-id="${data.productStock.Available_Qty}" 
-              data-product-name="${data.Item_Name}" 
-              data-product-image="${imageUrl}" 
-              data-product-price="${data.Sales_Price}" 
-              data-product-old-price="${data.Sales_Price}" 
-              data-product-imagetwo="${imageUrl}"
-              data-product-imageThree="${imageUrl}"
-              data-product-imageFour="${imageUrl}">
-              View Details
-            </button>
-          </h5>
-          <br>
-        </div>
-      </div>`;
-
-    containerElement.insertAdjacentHTML('beforeend', itemHtml);
-  });
-}
-
-// Fetch and display items for each category
-await fetchAndDisplayItems("male", itemsListDivmen);
-await fetchAndDisplayItems("female", itemsListDivwomen);
-await fetchAndDisplayItems("Accessories", itemsListDivAccessories);
-
-// Event delegation for buy buttons
-document.body.addEventListener('click', (event) => {
-  if (event.target.matches('.buybutton')) {
-    const button = event.target;
-    const productId = button.getAttribute('data-product-id');
-    const productName = button.getAttribute('data-product-name');
-    const productImage = button.getAttribute('data-product-image');
-    const productPrice = button.getAttribute('data-product-price');
-    const productOldPrice = button.getAttribute('data-product-old-price');
-    const productImageTwo = button.getAttribute('data-product-imagetwo');
-    const productImageThree = button.getAttribute('data-product-imagethree');
-    const productImageFour = button.getAttribute('data-product-imagefour');
-
-    const url = new URL('products.html', window.location.origin);
-    url.searchParams.append('id', productId);
-    url.searchParams.append('name', productName);
-    url.searchParams.append('image', productImage);
-    url.searchParams.append('price', productPrice);
-    url.searchParams.append('oldPrice', productOldPrice);
-    url.searchParams.append('imageTwo', productImageTwo);
-    url.searchParams.append('imageThree', productImageThree);
-    url.searchParams.append('imageFour', productImageFour);
-
-    window.location.href = url.toString();
-  }
 });
