@@ -165,7 +165,7 @@
    const submitsbutton  = document.getElementById('order');
    submitsbutton.addEventListener('click', () =>{
     
-    window.location.href = ('/indexs.html');
+    // window.location.href = ('/indexs.html');
    })
   </script>
 
@@ -182,7 +182,7 @@
             <p><span>Postal Code:</span> ${userData.postalCode}</p>
         `;
     } else {
-        document.getElementById('userDetails').innerHTML = '<p>No user data available.</p>';
+      window.location.href = './indexs.html';
     }
   </script>
   
