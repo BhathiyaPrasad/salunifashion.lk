@@ -39,17 +39,24 @@
     const password=document.getElementById('rPassword').value;
     const firstName=document.getElementById('fName').value;
     const lastName=document.getElementById('lName').value;
-
+    const faddress = document.getElementById('addressone').value;
+    const laddress = document.getElementById('addresstwo').value;
+    const postal = document.getElementById('postalcode').value;
+    const mobile = document.getElementById('mobilenumber').value;
     const auth=getAuth();
     const db=getFirestore();
 
-    createUserWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPassword(auth, email, password, faddress, laddress, postal, mobile)
     .then((userCredential)=>{
         const user=userCredential.user;
         const userData={
             email: email,
             firstName: firstName,
-            lastName:lastName
+            lastName:lastName,
+            addressOne: faddress,
+            addressTwo: laddress,
+            postalCode: postal,
+            mobileNumber: mobile
         };
         showMessage('Account Created Successfully', 'signUpMessage');
        
