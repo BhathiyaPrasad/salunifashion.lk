@@ -1,157 +1,194 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:"poppins",sans-serif;
+/* General reset and styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
 }
-body{
-    background-color: #c9d6ff;
-    background:linear-gradient(to right,#e2e2e2,#c9d6ff);
+
+body {
+    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
 }
+
 .container {
     background: #fff;
-    width: 100%; /* Adjusted to full width */
-    max-width: 450px; /* Set maximum width */
-    padding: 1.5rem;
-    margin: 50px auto;
+    width: 100%;
+    max-width: 450px;
+    padding: 2rem;
     border-radius: 10px;
-    box-shadow: 0 20px 35px rgba(0, 0, 1, 0.9);
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+    margin: 50px auto;
 }
 
-/* Media Query for screens smaller than 600px (typical mobile devices) */
+/* Media Query for screens smaller than 600px */
 @media (max-width: 600px) {
     .container {
+        width: 90%;
         margin: 20px auto;
-        width: 300px; /* Adjusted margin for smaller screens */
+        padding: 1.5rem;
     }
 }
-form{
-    margin:0 2rem;
-}
-.form-title{
-    font-size:1.5rem;
-    font-weight:bold;
-    text-align:center;
-    padding:1.3rem;
-    margin-bottom:0.4rem;
-}
-input{
-    color:inherit;
-    width:100%;
-    background-color:transparent;
-    border:none;
-    border-bottom:1px solid #757575;
-    padding-left:1.5rem;
-    font-size:15px;
-}
-.input-group{
-    padding:1% 0;
-    position:relative;
 
+form {
+    margin: 0 1rem;
 }
-.input-group i{
-    position:absolute;
-    color:black;
+
+.form-title {
+    font-size: 1.75rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1rem;
 }
-input:focus{
+
+.input-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.input-group i {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: #757575;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px 10px 10px 30px;
+    border: none;
+    border-bottom: 2px solid #757575;
+    font-size: 1rem;
     background-color: transparent;
-    outline:transparent;
-    border-bottom:2px solid hsl(327,90%,28%);
+    transition: border-color 0.3s;
 }
-input::placeholder{
-    color:transparent;
-}
-label{
-    color:#757575;
-    position:relative;
-    left:1.2em;
-    top:-1.3em;
-    cursor:auto;
-    transition:0.3s ease all;
-}
-input:focus~label,input:not(:placeholder-shown)~label{
-    top:-3em;
-    color:hsl(327,90%,28%);
-    font-size:15px;
-}
-.recover{
-    text-align:right;
-    font-size:1rem;
-    margin-bottom:1rem;
 
+.input-group input:focus {
+    border-bottom-color: hsl(327, 90%, 28%);
+    outline: none;
 }
-.recover a{
-    text-decoration:none;
-    color:rgb(125,125,235);
+
+.input-group label {
+    position: absolute;
+    top: 50%;
+    left: 30px;
+    transform: translateY(-50%);
+    color: #757575;
+    font-size: 1rem;
+    transition: all 0.3s;
+    pointer-events: none;
 }
-.recover a:hover{
-    color:blue;
-    text-decoration:underline;
+
+.input-group input:focus ~ label,
+.input-group input:not(:placeholder-shown) ~ label {
+    top: -1.5rem;
+    left: 10px;
+    font-size: 0.875rem;
+    color: hsl(327, 90%, 28%);
 }
-button{
-    font-size:1.1rem;
-    padding:8px 0;
-    border-radius:5px;
-    outline:none;
-    border:none;
-    width:100%;
-    background:rgb(125,125,235);
-    color:white;
-    cursor:pointer;
-    transition:0.9s;
+
+.recover {
+    text-align: right;
+    font-size: 1rem;
+    margin-bottom: 1rem;
 }
-button:hover{
-    background:#07001f;
+
+.recover a {
+    text-decoration: none;
+    color: rgb(125, 125, 235);
+    transition: color 0.3s;
 }
-.or{
-    font-size:1.1rem;
-    margin-top:0.5rem;
-    text-align:center;
+
+.recover a:hover {
+    color: blue;
+    text-decoration: underline;
 }
-.icons{
-    text-align:center;
-}
-.icons i{
-    color:rgb(125,125,235);
-    padding:0.8rem 1.5rem;
-    border-radius:10px;
-    font-size:1.5rem;
-    cursor:pointer;
-    border:2px solid #dfe9f5;
-    margin:0 15px;
-    transition:1s;
-}
-.icons i:hover{
-    background:#07001f;
-    font-size:1.6rem;
-    border:2px solid rgb(125,125,235);
-}
-.links{
-    display:flex;
-    justify-content:space-around;
-    padding:0 4rem;
-    margin-top:0.9rem;
-    font-weight:bold;
-}
- #signUpButton, #signInButton{
-    color:rgb(125,125,235);
-    border:none;
-    background-color:transparent;
-    font-size:1rem;
-    font-weight:bold;
-}
-#signUpButton:hover, #signInButton:hover {
-    text-decoration:underline;
-    color:blue;
-} 
-.messageDiv{
-    background-color:hsl(327,90%,28%);
-    color:white;
-    padding:10px 20px;
-    margin:10px;
+
+button {
+    width: 100%;
+    padding: 10px;
+    background: rgb(125, 125, 235);
+    color: white;
+    border: none;
     border-radius: 5px;
-    font-size:1rem;
-    opacity:0;
-    animation:fadeOut 7s forwards;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
 
+button:hover {
+    background: #07001f;
+}
+
+.or {
+    text-align: center;
+    font-size: 1.1rem;
+    margin: 1rem 0;
+}
+
+.icons {
+    text-align: center;
+}
+
+.icons i {
+    color: rgb(125, 125, 235);
+    padding: 0.8rem 1.5rem;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border: 2px solid #dfe9f5;
+    margin: 0 15px;
+    transition: all 0.3s;
+}
+
+.icons i:hover {
+    background: #07001f;
+    color: white;
+    border-color: rgb(125, 125, 235);
+}
+
+.links {
+    display: flex;
+    justify-content: space-around;
+    padding: 0 4rem;
+    margin-top: 1rem;
+}
+
+#signUpButton, #signInButton {
+    background: none;
+    border: none;
+    color: rgb(125, 125, 235);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+#signUpButton:hover, #signInButton:hover {
+    color: blue;
+    text-decoration: underline;
+}
+
+.messageDiv {
+    background-color: hsl(327, 90%, 28%);
+    color: white;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border-radius: 5px;
+    font-size: 1rem;
+    opacity: 0;
+    animation: fadeOut 7s forwards;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }
