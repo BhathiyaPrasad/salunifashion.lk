@@ -40,7 +40,7 @@ function showMessage(message, divId) {
       
     }
     const cityRef = doc(db, 'cities', 'BJ');
-    setDoc(cityRef, { capital: true }, { merge: true });
+    setDoc(cityRef, { capital: true }, { merge: true });   // look on this mate this is the key to success
   }
 
   // Call the function to log localStorage data
