@@ -1837,116 +1837,163 @@ footer {
 
 
           }
-           .showcase {
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      margin: 20px;
-      padding: 20px;
-      max-width: 300px;
-      text-align: center;
-      background-color: #fff;
-      transition: transform 0.3s;
-    }
-
-    .showcase:hover {
-      transform: scale(1.05);
-    }
-
-    .showcase-banner {
-      position: relative;
-      overflow: hidden;
-      border-radius: 10px;
-    }
-
-    .product-img {
-      display: block;
-      width: 100%;
-      height: auto;
-      transition: opacity 0.3s;
-    }
-
-    .product-img.hover {
-      position: absolute;
-      top: 0;
-      left: 0;
-      opacity: 0;
-    }
-
-    .showcase:hover .product-img.hover {
-      opacity: 1;
-    }
-
-    .showcase-actions {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      display: flex;
-      gap: 10px;
-    }
-
-    .btn-action {
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: #333;
-      font-size: 20px;
-    }
-
-    .btn-action:hover {
-      color: #ff6600;
-    }
-
-    .showcase-content {
-      margin-top: 15px;
-    }
-
-    .showcase-category {
-      color: #ff6600;
-      font-size: 14px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .showcase-title {
-      color: #333;
-      font-size: 18px;
-      text-decoration: none;
-      margin: 10px 0;
-    }
-
-    .showcase-rating {
-      color: #ffd700;
-      margin: 10px 0;
-    }
-
-    .price-box {
-      margin: 10px 0;
-    }
-
-    .price {
-      color: #333;
-      font-size: 20px;
-      font-weight: bold;
-    }
-
-    del {
-      color: #999;
-      font-size: 16px;
-      margin-left: 10px;
-    }
-
-    .buybutton {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 10px 20px;
-      background-color: #ff6600;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      text-transform: uppercase;
-      font-size: 14px;
-      font-weight: bold;
-      transition: background-color 0.3s;
-    }
+          .showcase {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            padding: 20px;
+            max-width: 300px;
+            text-align: center;
+            background-color: #fff;
+            transition: transform 0.3s;
+          }
+          
+          .showcase:hover {
+            transform: scale(1.05);
+          }
+          
+          .showcase-banner {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+          }
+          
+          .product-img {
+            display: block;
+            width: 100%;
+            height: auto;
+            transition: opacity 0.3s;
+          }
+          
+          .product-img.hover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+          }
+          
+          .showcase:hover .product-img.hover {
+            opacity: 1;
+          }
+          
+          .showcase-actions {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 10px;
+          }
+          
+          .btn-action {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #333;
+            font-size: 20px;
+          }
+          
+          .btn-action:hover {
+            color: #ff6600;
+          }
+          
+          .showcase-content {
+            margin-top: 15px;
+          }
+          
+          .showcase-category {
+            color: #ff6600;
+            font-size: 14px;
+            text-decoration: none;
+            font-weight: bold;
+          }
+          
+          .showcase-title {
+            color: #333;
+            font-size: 18px;
+            text-decoration: none;
+            margin: 10px 0;
+          }
+          
+          .showcase-rating {
+            color: #ffd700;
+            margin: 10px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+          
+          .star-rating {
+            display: inline-block;
+            font-size: 20px;
+            color: #ffd700;
+          }
+          
+          .price-box {
+            margin: 10px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+          }
+          
+          .price {
+            color: #333;
+            font-size: 20px;
+            font-weight: bold;
+          }
+          
+          .del {
+            color: #999;
+            font-size: 16px;
+            margin-left: 10px;
+          }
+          
+          .buybutton {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #ff6600;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 14px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+          }
+          
+          @media only screen and (max-width: 768px) {
+            .showcase {
+              max-width: calc(50% - 40px);
+            }
+          }
+          
+          @media only screen and (max-width: 480px) {
+            .showcase {
+              max-width: calc(100% - 40px);
+              margin: 10px;
+              padding: 15px;
+            }
+          
+            .showcase-title {
+              font-size: 16px;
+              margin: 8px 0;
+            }
+          
+            .showcase-category {
+              font-size: 12px;
+              margin-bottom: 5px;
+            }
+          
+            .price {
+              font-size: 18px;
+            }
+          
+            .buybutton {
+              padding: 8px 16px;
+              font-size: 12px;
+            }
+          }
+          

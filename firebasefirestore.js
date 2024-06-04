@@ -141,8 +141,8 @@ aggregatedData.forEach(async(data) => {
         <ion-icon name="star"></ion-icon>
       </div>
       <div class="price-box">
-        <p class="price">${data.Sales_Price}</p>
-        <del>${data.Sales_Price2}</del>
+        <p class="price">Rs.${data.Sales_Price}.00</p>
+        <del>Rs.${data.Sales_Price2}.00</del>
       </div>
       <br>
       <h5>
@@ -271,8 +271,8 @@ aggregatedDataa.forEach(async(data) => {
         <ion-icon name="star"></ion-icon>
       </div>
       <div class="price-box">
-        <p class="price">${data.Sales_Price}</p>
-        <del>${data.Sales_Price2}</del>
+        <p class="price">Rs.${data.Sales_Price}.00</p>
+        <del>Rs.${data.Sales_Price2}.00</del>
       </div>
       <br>
       <h5>
@@ -394,8 +394,8 @@ aggregatedDataaa.forEach(async(data) => {
         <ion-icon name="star"></ion-icon>
       </div>
       <div class="price-box">
-        <p class="price">${data.Sales_Price}</p>
-        <del>${data.Sales_Price2}</del>
+        <p class="price">Rs.${data.Sales_Price}.00</p>
+        <del>Rs.${data.Sales_Price2}.00</del>
       </div>
       <br>
       <h5>
