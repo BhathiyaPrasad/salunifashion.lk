@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Order Form</title>
+        <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js"></script>
+      </head>
+      
+  <body>
+    <form class="order-class">
+      <label for="customerName">Customer Name:</label>
+      <input type="text" id="customerName" required />
+      <br />
+      <label for="orderItems">Order Items:</label>
+      <textarea id="orderItems" required></textarea>
+      <br />
+      <button type="submit">Submit Order</button>
+    </form>
+
+   
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyDLa_nr_0c0kudQSzcGV5hkwq3WH2bRGgo",
+        authDomain: "freidea-pos.firebaseapp.com",
+        projectId: "freidea-pos",
+        storageBucket: "freidea-pos.appspot.com",
+        messagingSenderId: "317401437770",
+        appId: "1:317401437770:web:2657a877ea9fe88cf878b3",
+        measurementId: "G-M8RF0RL2FP",
+      };
+
+      // Initialize Firebase app and Firestore
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+
+      // Organization ID
+      const orgDocId = "InterithmT4";
+
+      const orderForm = document.querySelector(".order-class");
+      orderForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const customerNameInput = document.getElementById("customerName");
+        const orderItemsInput = document.getElementById("orderItems");
+
+        const orderData = {
+          customerName: customerNameInput.value,
+          orderItems: orderItemsInput.value,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(), // Use server timestamp for order time
+        };
+
+        try {
+          const docRef = await db
+            .collection(db.doc(`organizations/${orgDocId}`), "orders")
+            .add(orderData);
+          console.log("Document written with ID:", docRef.id);
+        } catch (error) {
+          console.error("Error writing document:", error);
+        }
+      });
+    </script>
+  </body>
+</html>
