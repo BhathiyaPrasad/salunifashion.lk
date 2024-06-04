@@ -9,13 +9,6 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-  <script src="https://www.googleapis.com/__/firebase/10.11.1/firebase-app.js"></script>
-  <script src="https://www.googleapis.com/__/firebase/10.11.1/firebase-firestore.js"></script>
-<script>
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
-  import { getFirestore, setDoc, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
-
-</script>
   <script type="module" src="firebaseauth.js"></script>
   <style>
     /* Additional styles for user details */
@@ -193,64 +186,9 @@
   </script>
   
   <script>
-    // Function to log all localStorage data to the console
-    function logLocalStorageData() {
-      console.log("Logging all localStorage data:");
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        const value = localStorage.getItem(key);
-        console.log(`${value}`);
-      
-        
-      }
-    }
-
-    // Call the function to log localStorage data
-    logLocalStorageData();
+  
   </script>
-  <script>
 
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyDLa_nr_0c0kudQSzcGV5hkwq3WH2bRGgo",
-    authDomain: "freidea-pos.firebaseapp.com",
-    projectId: "freidea-pos",
-    storageBucket: "freidea-pos.appspot.com",
-    messagingSenderId: "317401437770",
-    appId: "1:317401437770:web:2657a877ea9fe88cf878b3",
-    measurementId: "G-M8RF0RL2FP"
-};
-
-
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-
-function logLocalStorageData() {
-  console.log("Saving data to Firestore:");
-  const products = JSON.parse(localStorage.getItem('products'));
-
-  products.forEach(product => {
-    // Create a document with product properties as fields
-    db.collection("products").add(product)
-      .then(docRef => {
-        console.log("Product saved with ID:", docRef.id);
-      })
-      .catch(error => {
-        console.error("Error saving product:", error);
-      });
-  });
-}
-document.getElementById('orderbuttonid').addEventListener('click', () => {
-  // Your existing order confirmation logic
-
-  // Save data to Firestore after order confirmation
-  logLocalStorageData();
-});
-
-
-
-
-  </script>
 
   <script src="payments.js"></script>
 </body>

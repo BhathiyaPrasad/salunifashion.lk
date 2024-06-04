@@ -29,6 +29,28 @@ function showMessage(message, divId) {
     }, 5000);
 }
 
+  // Function to log all localStorage data to the console
+  function logLocalStorageData() {
+    console.log("Logging all localStorage data:");
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      const value = localStorage.getItem(key);
+      console.log(`${value}`);
+    
+      
+    }
+    const cityRef = doc(db, 'cities', 'BJ');
+    setDoc(cityRef, { capital: true }, { merge: true });
+  }
+
+  // Call the function to log localStorage data
+  logLocalStorageData();
+
+
+
+
+
+
 const signUp = document.getElementById('submitSignUp');
 signUp.addEventListener('click', (event) => {
     event.preventDefault();
@@ -116,3 +138,6 @@ signIn.addEventListener('click', (event) => {
             }
         });
 });
+
+
+
