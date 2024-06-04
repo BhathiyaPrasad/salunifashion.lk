@@ -102,7 +102,7 @@ signIn.addEventListener('click', (event) => {
                 localStorage.setItem('userData', JSON.stringify(userData));
 
                 // Redirect to the payments page
-                window.location.href = './payments.html';
+                window.location.href = './Payments.html';
             } else {
                 console.log('No such document!');
             }
