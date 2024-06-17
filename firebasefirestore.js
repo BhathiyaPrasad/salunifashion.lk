@@ -39,6 +39,8 @@ async function getImageDownloadURL(imagePath) {
 
 const orgDocId = "InterithmT4";  // organzation name
 const itemsListDivmen = document.getElementById("men");
+const itemsListDivwomen = document.getElementById("women");
+const itemsListDivAccessories = document.getElementById("Accessories");
 
 // Reference to the 'items' collection
 const itemsRef = collection(doc(db, "organizations", orgDocId), "items");
@@ -163,7 +165,9 @@ aggregatedData.forEach(async(data) => {
   itemsListDivmen.insertAdjacentHTML('beforeend', itemHtml);
 });
 
-// creating onclick functionality for the button below the produt card 
+
+
+
 const buyButtons = document.querySelectorAll('.buybutton');
 buyButtons.forEach(button => {
   button.addEventListener('click', (event) => {
