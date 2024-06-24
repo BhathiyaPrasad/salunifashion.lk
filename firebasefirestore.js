@@ -325,6 +325,9 @@ buyButtons.forEach(button => {
 
 
 
+const userData = localStorage.getItem('userData');
 
+console.log(userData);  
 
-
+const productData = localStorage.getItem('products');
+console.log(productData);
