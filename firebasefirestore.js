@@ -325,12 +325,21 @@ buyButtons.forEach(button => {
 
 
 
-const userData = localStorage.getItem('userData');
+const {} = localStorage.getItem('userData');
 
-console.log(userData);  
+console.log(userData.mobileNumber); 
+console.log(userData.firstName); 
 
 const productData = localStorage.getItem('products');
 console.log(productData);
+
+
+
+
+
+
+
+
 
 document.addEventListener('click', async (event) => {
   if (event.target.classList.contains('proceed-payment')) {
@@ -489,4 +498,3 @@ document.addEventListener('click', async (event) => {
     window.location.href = 'index.html#menu';
   }
 });
-
