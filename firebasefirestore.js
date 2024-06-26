@@ -326,14 +326,14 @@ buyButtons.forEach(button => {
 
 
 const {} = localStorage.getItem('userData');
-
+console.log(userData);
 console.log(userData.mobileNumber); 
 console.log(userData.firstName); 
 
-const productData = localStorage.getItem('products');
+const productData  = localStorage.getItem('products');
 console.log(productData);
 
-
+console.log(productData.id); 
 
 
 
@@ -416,7 +416,7 @@ document.addEventListener('click', async (event) => {
           itemName: item.name,
           itemEngName: item.name,
           quantity: item.qty,
-          UUID: generateUUID(),
+          UUID: generateUUID(), 
           salePrice: item.price,
           lineTotal: item.price * item.qty, // added line total
           remark: "",

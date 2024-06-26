@@ -54,14 +54,14 @@
             <i class="fa fa-long-arrow-left"></i><span class="ml-2">Continue Shopping</span>
           </div>
           <hr />
-          <h6 class="mb-0">Shopping cart</h6>
+        
           <div class="d-flex justify-content-between">
             <span id="item-count"></span>
-            <div class="d-flex flex-row align-items-center">
+            <!-- <div class="d-flex flex-row align-items-center">
               <span class="mr-1">Quantity</span>
               <div class="price ml-5">
                 <span class="mr-1">Price</span>
-              </div>
+              </div> -->
             </div>
           </div>
           <div id="product-container"></div>
@@ -126,7 +126,7 @@
       const itemCount = document.getElementById("item-count");
       let totalQuantity = 0;
       let totalPrice = 0;
-      itemCount.textContent = `You have ${products.length} items in your cart`;
+      itemCount.textContent = ``;
       productContainer.innerHTML = products.map(product => {
         totalQuantity += parseInt(product.qty);
         totalPrice += parseFloat(product.price) * parseInt(product.qty) ;
