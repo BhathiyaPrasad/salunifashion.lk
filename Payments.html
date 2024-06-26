@@ -43,49 +43,54 @@
     #userDetails p span.value {
       color: #6c757d; /* Different color for the actual values for better distinction */
     }
+    @media (max-width: 768px) {
+      .total-responsive {
+        font-size: 1em !important;
+      }
+    }
+    @media (max-width: 576px) {
+      .total-responsive {
+        font-size: 0.8em !important;
+      }
+    }
+    
   </style>
 </head>
 <body>
-  <div class="container mt-5 p-3 rounded cart">
+  <div class="container mt-5 p-3 rounded cart" style="background-color: #f8f9fa; border: 1px solid #dee2e6;">
     <div class="row no-gutters">
       <div class="col-md-12">
-        <div class="product-details mr-2">
-          <div class="d-flex flex-row align-items-center" id="navigationarrow">
-            <i class="fa fa-long-arrow-left"></i><span class="ml-2">Continue Shopping</span>
+        <div class="product-details mr-2" style="padding: 20px;">
+          <div class="d-flex flex-row align-items-center" id="navigationarrow" style="cursor: pointer; color: #007bff;">
+            <i class="fa fa-long-arrow-left"></i>
+            <span class="ml-2" style="margin-left: 8px;">Continue Shopping</span>
           </div>
-          <hr />
-        
+          <hr style="border-top: 1px solid #dee2e6;" />
+          
           <div class="d-flex justify-content-between">
-            <span id="item-count"></span>
-            <!-- <div class="d-flex flex-row align-items-center">
-              <span class="mr-1">Quantity</span>
-              <div class="price ml-5">
-                <span class="mr-1">Price</span>
-              </div> -->
-            </div>
+            <span id="item-count" style="font-size: 1.2em; font-weight: bold;">Items in Cart</span>
           </div>
-          <div id="product-container"></div>
+          <div id="product-container" style="margin-top: 20px;"></div>
           <br>
-          <div class="Total">Total Quantity: 0 | Total Price: $0.00</div>
+          <div class="Total total-responsive" style="font-size: 1.2em; font-weight: bold;">Total Quantity: 0 | Total Price: $0.00</div>
           <br>
           <div class="payment-type">
-            <h6>Select Payment Method</h6>
-            <form id="payment-method-form">
-              <label class="radio-inline">
-                <input type="radio" name="paymentMethod" value="cod" checked> Cash on Delivery
+            <!-- <h6 style="font-size: 1.2em; font-weight: bold;">Select Payment Method</h6> -->
+            <form id="payment-method-form" style="margin-top: 10px;">
+              <label class="radio-inline" style="margin-right: 10px;">
+                <input type="radio" name="paymentMethod" value="cod" checked style="margin-right: 5px;"> Cash on Delivery
               </label>
-              <label class="radio-inline">
-                <input type="radio" name="paymentMethod" value="online"> Online Payment
+              <label class="radio-inline" style="margin-right: 10px;">
+                <input type="radio" name="paymentMethod" value="online" style="margin-right: 5px;"> Online Payment
               </label>
             </form>
-            <Button type="button" class="proceed-payment" id="orderbuttonid">Confirm Order</Button>
-            <div id="userDetails"></div>
+            <button type="button" class="proceed-payment" id="orderbuttonid" style="margin-top: 20px; padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">Confirm Order</button>
+            <div id="userDetails" style="margin-top: 20px;"></div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
   <script>
     function getUrlParams() {
       const params = new URLSearchParams(window.location.search);
@@ -131,18 +136,52 @@
         totalQuantity += parseInt(product.qty);
         totalPrice += parseFloat(product.price) * parseInt(product.qty) ;
         return `
-        <div class="d-flex justify-content-between align-items-center mt-3 p-2 items rounded" id="product-${product.id}">
-          <div class="d-flex flex-row">
-            <img class="rounded" src="${product.image}" width="40" />
-            <div class="ml-2">
-              <span class="font-weight-bold d-block">${product.name}</span><span class="spec">${product.size}</span>
-            </div>
-          </div>
-          <div class="d-flex flex-row align-items-center">
-            <span class="d-block">${product.qty}</span><span class="d-block ml-5 font-weight-bold">Rs. ${product.price}.00</span>
-            <i class="fa fa-trash-o ml-4 text-black-50" onclick="removeFromLocalStorage('${product.id}')"></i>
-          </div>
-        </div>
+     <div class="d-flex justify-content-between align-items-center mt-3 p-2 items rounded" id="product-${product.id}" 
+  style="
+    background-color: #f8f9fa; 
+    border: 1px solid #dee2e6; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    padding: 10px; 
+    margin-top: 10px; 
+    border-radius: 5px;
+  ">
+  <div class="d-flex flex-row">
+    <img class="rounded" src="${product.image}" width="40" 
+      style="border: 1px solid #dee2e6;" />
+    <div class="ml-2" 
+      style="margin-left: 8px;">
+      <span class="font-weight-bold d-block" 
+        style="font-weight: bold;">${product.name}</span>
+      <span class="spec" 
+        style="color: #6c757d;">${product.size}</span>
+    </div>
+  </div>
+  <div class="d-flex flex-row align-items-center">
+    <span class="d-block" 
+      style="margin-right: 20px; font-size: 1.1em; color: #343a40; font-weight: bold;">${product.qty}</span>
+    <span class="d-block ml-5 font-weight-bold" 
+      style="margin-left: 20px; font-size: 1.1em; color: #28a745; font-weight: bold;">Rs. ${product.price}.00</span>
+    <i class="fa fa-trash-o ml-4" 
+      onclick="removeFromLocalStorage('${product.id}')" 
+      style="margin-left: 16px; color: #dc3545; cursor: pointer; font-size: 1.2em;"></i>
+  </div>
+</div>
+<style>
+  @media (max-width: 768px) {
+    #product-${product.id} .font-weight-bold {
+      font-size: 0.9em;
+    }
+    #product-${product.id} .spec {
+      font-size: 0.8em;
+    }
+    #product-${product.id} .d-block {
+      font-size: 0.9em;
+    }
+    #product-${product.id} .fa-trash-o {
+      font-size: 1em;
+    }
+  }
+</style>
       `;
       }).join('');
       document.querySelector('.Total').textContent = `Total Quantity: ${totalQuantity} | Total Price: Rs. ${totalPrice.toFixed(2)}`;
