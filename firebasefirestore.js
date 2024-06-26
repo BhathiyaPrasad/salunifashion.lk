@@ -147,14 +147,15 @@ aggregatedData.forEach(async(data) => {
       <br>
       <h5>
         <button class="buybutton"  
-          data-product-id="${data.productStock.Available_Qty}" 
+          data-product-id="${data.Item_ID}" 
           data-product-name="${data.Item_Name}" 
           data-product-image="${imageUrl}" 
           data-product-price="${data.Sales_Price}" 
           data-product-old-price="${data.Sales_Price}" 
           data-product-imagetwo="${imageUrl}"
           data-product-imageThree="${imageUrl}"
-          data-product-imageFour="${imageUrl}">
+          data-product-imageFour="${imageUrl}"
+          data-product-qty="${data.productStock.Available_Qty}">
           View Details
         </button>
       </h5>
@@ -261,7 +262,7 @@ aggregatedDataaa.forEach(async(data) => {
     <div class="showcase-content">
       <br>
       <a href="#" class="showcase-category">${data.Item_Name}</a>
-      <h3><a href="#" class="showcase-title">${data.Item_Name}</a></h3>
+      
       <div class="showcase-rating">
         <ion-icon name="star"></ion-icon>
         <ion-icon name="star"></ion-icon>
@@ -276,14 +277,15 @@ aggregatedDataaa.forEach(async(data) => {
       <br>
       <h5>
       <button class="buybutton"  
-        data-product-id="${data.productStock.Available_Qty}" 
+        data-product-id="${data.Item_Id}" 
         data-product-name="${data.Item_Name}" 
         data-product-image="${imageUrl}" 
         data-product-price="${data.Sales_Price}" 
         data-product-old-price="${data.Sales_Price}" 
         data-product-imagetwo="${imageUrl}"
         data-product-imageThree="${imageUrl}"
-        data-product-imageFour="${imageUrl}">
+        data-product-imageFour="${imageUrl}"
+        data-product-qty="${data.productStock.Available_Qty}">
         View Details
       </button>
     </h5>
@@ -305,7 +307,7 @@ buyButtons.forEach(button => {
     const productImageTwo = event.target.getAttribute('data-product-imagetwo');
     const productImageThree = event.target.getAttribute('data-product-imageThree');
     const productImageFour = event.target.getAttribute('data-product-imageFour');
-
+    const productqty = event.target.getAttribute('data-product-qty');
     // Create a URL with query parameters
     const url = new URL('products.html', window.location.origin);
     url.searchParams.append('id', productId);
@@ -316,7 +318,7 @@ buyButtons.forEach(button => {
     url.searchParams.append('imageTwo', productImageTwo);
     url.searchParams.append('imageThree', productImageThree);
     url.searchParams.append('imageFour', productImageFour);
-
+    url.searchParams.append('qty', productqty);
     // Navigate to the new URL
     window.location.href = url.toString();
   });
@@ -330,10 +332,20 @@ console.log(userData);
 console.log(userData.mobileNumber); 
 console.log(userData.firstName); 
 
-const productData  = localStorage.getItem('products');
-console.log(productData);
+// Retrieve the JSON string from localStorage
+const productData = localStorage.getItem('products');
 
-console.log(productData.id); 
+// Parse the JSON string to get an array of objects
+const products = JSON.parse(productData);
+
+// Accessing data from the first object in the array (assuming array is not empty)
+if (products && products.length > 0) {
+  console.log(products[0].id); 
+  console.log(products[0].name);// Access the 'id' of the first product
+  console.log(products);       // Log the entire array of products
+} else {
+  console.log('No products found');
+}
 
 
 
