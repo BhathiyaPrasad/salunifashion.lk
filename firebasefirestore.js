@@ -473,7 +473,14 @@ document.addEventListener('click', async (event) => {
           invoiceNo: "",
           parkNo: "",
           UUID: generateUUID(),
-          Deleted: 0
+          Deleted: 0,
+          Cust_Name: "",
+          Cust_Phone: "",
+          Cust_AddressOne: "",
+          Cust_AddressTwo: "",
+          Cust_Email: "",
+          Cust_PostalCode: "",
+
         });
         console.log('All documents copied from ClientID_List to orders.');
       } catch (error) {
