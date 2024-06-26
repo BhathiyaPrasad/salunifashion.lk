@@ -48,7 +48,7 @@ const itemsRef = collection(doc(db, "organizations", orgDocId), "items");
 // Query to find documents in the 'items' collection where 'item_id' is not empty
 const itemsQuery = query(
   itemsRef,
-  where("Manufacturer", "==", "male"),
+  // where("Manufacturer", "==", "male"),
   orderBy("Cat_Name")
 );
 
@@ -173,128 +173,128 @@ aggregatedData.forEach(async(data) => {
 
 
 
-// // Reference to the 'items' collection
-// const itemsRefff = collection(doc(db, "organizations", orgDocId), "items");
+// Reference to the 'items' collection
+const itemsRefff = collection(doc(db, "organizations", orgDocId), "items");
 
-// // Query to find documents in the 'items' collection where 'item_id' is not empty
-// const itemsQueryyy = query(
-//   itemsRefff,
-//   where("Manufacturer", "==", "Accessories"),
-//   orderBy("Cat_Name")
-// );
+// Query to find documents in the 'items' collection where 'item_id' is not empty
+const itemsQueryyy = query(
+  itemsRefff,
+  where("Manufacturer", "==", "Accessories"),
+  orderBy("Cat_Name")
+);
 
-// // Retrieve documents from the 'items' collection
-// const itemQuerySnapshottt = await getDocs(itemsQueryyy);
+// Retrieve documents from the 'items' collection
+const itemQuerySnapshottt = await getDocs(itemsQueryyy);
 
-// // Array to store promises of queries
-// const promisesss = [];
-// const itemsDataaa = [];
+// Array to store promises of queries
+const promisesss = [];
+const itemsDataaa = [];
 
-// // Iterate over the documents in the 'items' collection
-// itemQuerySnapshottt.forEach((itemDoc) => {
-//   const itemData = itemDoc.data();
-//   itemsDataaa.push(itemData);
+// Iterate over the documents in the 'items' collection
+itemQuerySnapshottt.forEach((itemDoc) => {
+  const itemData = itemDoc.data();
+  itemsDataaa.push(itemData);
 
-//   // Reference to the 'products_stock_management' collection
-//   const productsStockReff = collection(doc(db, "organizations", orgDocId), "products_stock_management");
+  // Reference to the 'products_stock_management' collection
+  const productsStockReff = collection(doc(db, "organizations", orgDocId), "products_stock_management");
 
-//   // Query to find documents in the 'products_stock_management' collection where 'product_id' is equal to the 'item_id' from 'items' collection
-//   const productsStockQueryyy = query(
-//     productsStockReff,
-//     where("Product_ID", "==", itemData.Item_ID),
-//     orderBy("Available_Qty", "DESC"),
-//     limit(1)
-//   );
+  // Query to find documents in the 'products_stock_management' collection where 'product_id' is equal to the 'item_id' from 'items' collection
+  const productsStockQueryyy = query(
+    productsStockReff,
+    where("Product_ID", "==", itemData.Item_ID),
+    orderBy("Available_Qty", "DESC"),
+    limit(1)
+  );
 
-//   // Add the promise of the query to the array
-//   promisesss.push(getDocs(productsStockQueryyy));
-// });
+  // Add the promise of the query to the array
+  promisesss.push(getDocs(productsStockQueryyy));
+});
 
-// // Wait for all promises to resolve
-// const snapshotssss = await Promise.all(promisesss);
+// Wait for all promises to resolve
+const snapshotssss = await Promise.all(promisesss);
 
-// // Array to store matching documents
-// const aggregatedDataaa = [];
+// Array to store matching documents
+const aggregatedDataaa = [];
 
-// // Iterate over the query snapshots
-// snapshotssss.forEach((productsStockSnapshott, index) => {
-//   const itemData = itemsDataaa[index];
+// Iterate over the query snapshots
+snapshotssss.forEach((productsStockSnapshott, index) => {
+  const itemData = itemsDataaa[index];
 
-//   // Iterate over the documents in the 'products_stock_management' collection
-//   productsStockSnapshott.forEach((productStockDocc) => {
-//     const productStockDataa = productStockDocc.data();
+  // Iterate over the documents in the 'products_stock_management' collection
+  productsStockSnapshott.forEach((productStockDocc) => {
+    const productStockDataa = productStockDocc.data();
 
-//     // Merge item data with product stock data
-//     const mergedDataa = {
-//       ...itemData,
-//       productStock: productStockDataa
-//     };
+    // Merge item data with product stock data
+    const mergedDataa = {
+      ...itemData,
+      productStock: productStockDataa
+    };
 
-//     // Add the merged data to the array
-//     aggregatedDataaa.push(mergedDataa);
-//   });
-// });
+    // Add the merged data to the array
+    aggregatedDataaa.push(mergedDataa);
+  });
+});
 
-// // Output the aggregated data
-// console.log("Aggregated Data:", aggregatedDataaa);
+// Output the aggregated data
+console.log("Aggregated Data:", aggregatedDataaa);
 
-// // Access and manipulate the aggregated data
-// aggregatedDataaa.forEach(async(data) => {
-//   // Example: Log each item's name and stock quantity
-//   console.log(`Item: ${data.Item_ID}`);
-//   console.log(`Name: ${data.Item_Name}`);
-//   console.log(`Stock Quantity: ${data.productStock.Available_Qty}`);
-//   console.log('-----------------------');
-//   console.log("freidea-pos-img/InterithmT3/Images/Products/Product_"+`${data.Item_ID_Auto}`+".png");
-//   const imageUrl = await getImageDownloadURL(`gs://freidea-pos-img/InterithmT4/Images/Products/Product_`+`${data.Item_ID_Auto}`+`.png`);
-//   const itemHtml = `
-//   <div class="showcase" id="#${data.category}">
-//     <div class="showcase-banner">
-//       <img src="${imageUrl}" alt="${data.Product_Name}" class="product-img default" width="300">
-//       <img src="${imageUrl}" alt="${data.Product_Name}" class="product-img hover" width="300">
-//       <div class="showcase-actions">
-//         <button class="btn-action"><ion-icon name="heart-outline"></ion-icon></button>
-//         <button class="btn-action"><ion-icon name="eye-outline"></ion-icon></button>
-//         <button class="btn-action"><ion-icon name="repeat-outline"></ion-icon></button>
-//         <button class="btn-action"><ion-icon name="bag-add-outline"></ion-icon></button>
-//       </div>
-//     </div>
-//     <div class="showcase-content">
-//       <br>
-//       <a href="#" class="showcase-category">${data.Item_Name}</a>
+// Access and manipulate the aggregated data
+aggregatedDataaa.forEach(async(data) => {
+  // Example: Log each item's name and stock quantity
+  console.log(`Item: ${data.Item_ID}`);
+  console.log(`Name: ${data.Item_Name}`);
+  console.log(`Stock Quantity: ${data.productStock.Available_Qty}`);
+  console.log('-----------------------');
+  console.log("freidea-pos-img/InterithmT3/Images/Products/Product_"+`${data.Item_ID_Auto}`+".png");
+  const imageUrl = await getImageDownloadURL(`gs://freidea-pos-img/InterithmT4/Images/Products/Product_`+`${data.Item_ID_Auto}`+`.png`);
+  const itemHtml = `
+  <div class="showcase" id="#${data.category}">
+    <div class="showcase-banner">
+      <img src="${imageUrl}" alt="${data.Product_Name}" class="product-img default" width="300">
+      <img src="${imageUrl}" alt="${data.Product_Name}" class="product-img hover" width="300">
+      <div class="showcase-actions">
+        <button class="btn-action"><ion-icon name="heart-outline"></ion-icon></button>
+        <button class="btn-action"><ion-icon name="eye-outline"></ion-icon></button>
+        <button class="btn-action"><ion-icon name="repeat-outline"></ion-icon></button>
+        <button class="btn-action"><ion-icon name="bag-add-outline"></ion-icon></button>
+      </div>
+    </div>
+    <div class="showcase-content">
+      <br>
+      <a href="#" class="showcase-category">${data.Item_Name}</a>
       
-//       <div class="showcase-rating">
-//         <ion-icon name="star"></ion-icon>
-//         <ion-icon name="star"></ion-icon>
-//         <ion-icon name="star"></ion-icon>
-//         <ion-icon name="star"></ion-icon>
-//         <ion-icon name="star"></ion-icon>
-//       </div>
-//       <div class="price-box">
-//         <p class="price">Rs.${data.Sales_Price}.00</p>
-//         <del>Rs.${data.Sales_Price2}.00</del>
-//       </div>
-//       <br>
-//       <h5>
-//       <button class="buybutton"  
-//         data-product-id="${data.Item_Id}" 
-//         data-product-name="${data.Item_Name}" 
-//         data-product-image="${imageUrl}" 
-//         data-product-price="${data.Sales_Price}" 
-//         data-product-old-price="${data.Sales_Price}" 
-//         data-product-imagetwo="${imageUrl}"
-//         data-product-imageThree="${imageUrl}"
-//         data-product-imageFour="${imageUrl}"
-//         data-product-qty="${data.productStock.Available_Qty}">
-//         View Details
-//       </button>
-//     </h5>
-//       <br>
-//     </div>
-//   </div>`;
+      <div class="showcase-rating">
+        <ion-icon name="star"></ion-icon>
+        <ion-icon name="star"></ion-icon>
+        <ion-icon name="star"></ion-icon>
+        <ion-icon name="star"></ion-icon>
+        <ion-icon name="star"></ion-icon>
+      </div>
+      <div class="price-box">
+        <p class="price">Rs.${data.Sales_Price}.00</p>
+        <del>Rs.${data.Sales_Price2}.00</del>
+      </div>
+      <br>
+      <h5>
+      <button class="buybutton"  
+        data-product-id="${data.Item_Id}" 
+        data-product-name="${data.Item_Name}" 
+        data-product-image="${imageUrl}" 
+        data-product-price="${data.Sales_Price}" 
+        data-product-old-price="${data.Sales_Price}" 
+        data-product-imagetwo="${imageUrl}"
+        data-product-imageThree="${imageUrl}"
+        data-product-imageFour="${imageUrl}"
+        data-product-qty="${data.productStock.Available_Qty}">
+        View Details
+      </button>
+    </h5>
+      <br>
+    </div>
+  </div>`;
 
-//   itemsListDivAccessories.insertAdjacentHTML('beforeend', itemHtml);
-// });
+  itemsListDivAccessories.insertAdjacentHTML('beforeend', itemHtml);
+});
 
 const buyButtons = document.querySelectorAll('.buybutton');
 buyButtons.forEach(button => {
