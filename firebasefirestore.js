@@ -327,54 +327,45 @@ buyButtons.forEach(button => {
 
 
 
-const {} = localStorage.getItem('userData');
+// Retrieve and parse userData from localStorage
+const userData = JSON.parse(localStorage.getItem('userData') || '{}');
 console.log(userData);
 console.log(userData.mobileNumber); 
 console.log(userData.firstName); 
 
-// Retrieve the JSON string from localStorage
+// Retrieve and parse product data from localStorage
 const productData = localStorage.getItem('products');
+const products = productData ? JSON.parse(productData) : [];
 
-// Parse the JSON string to get an array of objects
-const products = JSON.parse(productData);
-
-// Accessing data from the first object in the array (assuming array is not empty)
-if (products && products.length > 0) {
+if (products.length > 0) {
   console.log(products[0].id); 
-  console.log(products[0].name);// Access the 'id' of the first product
-  console.log(products);       // Log the entire array of products
+  console.log(products[0].name);
+  console.log(products);
 } else {
   console.log('No products found');
 }
 
-
-
-
-
-
+// UUID generator function
+const generateUUID = () => {
+  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+  );
+};
 
 document.addEventListener('click', async (event) => {
   if (event.target.classList.contains('proceed-payment')) {
     console.log("Button clicked!");
     event.preventDefault(); 
-    // showLoadingScreen();
+
     const now = new Date();
-    const orgDocId = "InterithmT4"; // Replace with your actual orgDocId
+    const orgDocId = "InterithmT4";
     const orderItemsRef = collection(db, 'organizations', orgDocId, 'order_items');
     const ordersRef = collection(db, 'organizations', orgDocId, 'orders');
-    const clientIDListRef = collection(db, 'organizations', orgDocId, 'ClientID_List'); // Reference to ClientID_List
-    const totalPrice = event.target.getAttribute('data-product-total-price');
-    
-    const orderDocRef = doc(ordersRef); // This creates a reference with a unique ID
-    const orderId = orderDocRef.id; // Get the unique ID
-    
-    console.log(orderId);
-    
-    const generateUUID = () => {
-      return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-      );
-    };
+    const clientIDListRef = collection(db, 'organizations', orgDocId, 'ClientID_List');
+    const totalPrice = parseFloat(event.target.getAttribute('data-product-total-price'));
+
+    const orderDocRef = doc(ordersRef);
+    const orderId = orderDocRef.id;
 
     const addOrderItem = async (item) => {
       try {
@@ -390,7 +381,7 @@ document.addEventListener('click', async (event) => {
             itemID: item.id,
             itemName: item.name,
             itemEngName: item.name,
-            quantity:item.qty,
+            quantity: item.qty,
             UUID: generateUUID(),
             salePrice: item.price,
             lineTotal: 0.0,
@@ -407,39 +398,39 @@ document.addEventListener('click', async (event) => {
     const copyClientIDListToOrderItem = async (item) => {
       try {
         if (item.name === null) {
-          console.log('Null value')}
-          else {
-        const clientIDListSnapshot = await getDocs(clientIDListRef);
-        const combinedData = {};
-        clientIDListSnapshot.forEach((doc) => {
-          combinedData[doc.id] = 0; // Add client ID as field with value 0
-        });
-        if (Object.keys(combinedData).length === 0) {
-          throw new Error("No documents found in ClientID_List collection.");
+          console.log('Null value');
+        } else {
+          const clientIDListSnapshot = await getDocs(clientIDListRef);
+          const combinedData = {};
+          clientIDListSnapshot.forEach((doc) => {
+            combinedData[doc.id] = 0;
+          });
+          if (Object.keys(combinedData).length === 0) {
+            throw new Error("No documents found in ClientID_List collection.");
+          }
+          await setDoc(doc(orderItemsRef, orderId + "_" + item.id), {
+            ...combinedData,
+            orderAutoID: orderId,
+            orderID: orderId,
+            lineOrder: 0,
+            itemAutoID: "",
+            itemID: item.id,
+            itemName: item.name,
+            itemEngName: item.name,
+            quantity: item.qty,
+            UUID: generateUUID(),
+            salePrice: item.price,
+            lineTotal: item.price * item.qty,
+            remark: "",
+            Deleted: 0
+          });
+          console.log('All documents copied from ClientID_List to order item for item ID: ', item.id);
         }
-        
-        await setDoc(doc(orderItemsRef, orderId + "_" + item.id), {
-          ...combinedData,
-          orderAutoID: orderId,
-          orderID: orderId,
-          lineOrder: 0,
-          itemAutoID: "",
-          itemID: item.id,
-          itemName: item.name,
-          itemEngName: item.name,
-          quantity: item.qty,
-          UUID: generateUUID(), 
-          salePrice: item.price,
-          lineTotal: item.price * item.qty, // added line total
-          remark: "",
-          Deleted: 0
-        });
-        console.log('All documents copied from ClientID_List to order item for item ID: ', item.id);
-      }} catch (error) {
+      } catch (error) {
         console.error('Error copying documents: ', error);
       }
-    }
-  
+    };
+
     const addOrder = async (totalValue) => {
       try {
         await setDoc(doc(ordersRef, orderId), {
@@ -460,21 +451,21 @@ document.addEventListener('click', async (event) => {
         const clientIDListSnapshot = await getDocs(clientIDListRef);
         const combinedData = {};
         clientIDListSnapshot.forEach((doc) => {
-          combinedData[doc.id] = 0; // Add client ID as field with value 0
+          combinedData[doc.id] = 0;
         });
         if (Object.keys(combinedData).length === 0) {
           throw new Error("No documents found in ClientID_List collection.");
         }
-        
         await setDoc(doc(ordersRef, orderId), {
           ...combinedData,
           orderAutoID: orderId,
           orderID: orderId,
           createdDate: now.toISOString().split('T')[0],
-          createdTime: now.toLocaleTimeString(), 
+          createdTime: now.toLocaleTimeString(),
           currentStatus: "Pending",
-          tableName:  tableName,
-          note: additionalDetails,
+          // tableName and additionalDetails should be defined or retrieved from the appropriate source
+          tableName: "", 
+          note: "", 
           subTotal: 0.0,
           confirmedBy: "",
           rejectedBy: "",
@@ -490,23 +481,17 @@ document.addEventListener('click', async (event) => {
       }
     };
 
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cart = JSON.parse(localStorage.getItem('products')) || [];
     let totalValue = 0;
     for (const item of cart) {
       totalValue += item.price;
-      // await addOrderItem(item);
-      await copyClientIDListToOrderItem(item); // Execute for every order item
+      await copyClientIDListToOrderItem(item);
     }
     await addOrder(totalValue);
-    await copyClientIDListToOrder(); // Execute once for the entire order
-    
-    localStorage.clear(); // Clear local storage after successful save
-    // hideLoadingScreen();
-    // Optionally redirect to another page or show a success message
-    alert('Order placed successfully');
-    // After your function completes
- 
+    await copyClientIDListToOrder();
 
+    localStorage.clear(); 
+    alert('Order placed successfully');
     window.location.href = 'index.html#menu';
   }
 });
